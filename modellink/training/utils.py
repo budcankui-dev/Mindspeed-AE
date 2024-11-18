@@ -28,7 +28,6 @@ from megatron.core import mpu
 from tqdm import tqdm
 
 from mindspeed.utils import (set_actual_seq_len, set_position_ids,
-                             _get_batch_on_this_cp_rank_in_megatron_cp_general,
                              _get_batch_on_this_cp_rank_in_megatron_cp,
                              _get_batch_on_this_cp_rank_in_ulysses_cp,
                              _get_batch_on_this_cp_rank_in_hybrid_cp_general,
@@ -441,3 +440,21 @@ def generate_adaptive_cp_mask_list_by_user(opt_seq, opt_scheduling, cp_rank, cp_
             mask = mask < 0.5
         mask_list.append(mask)
     set_adaptive_cp_mask_list_by_user(mask_list)
+    
+    
+def _get_batch_on_this_cp_rank_in_megatron_cp_general(batch):
+    cp_rank = mpu.get_context_parallel_rank()
+    cp_size = mpu.get_context_parallel_world_size()
+    for key, val in batch.items():
+        if key == 'attention_mask' and val is not None:
+            seq_dim = 2 if len(val.shape) == 4 else 0
+            mask_row = val.chunk(cp_size, dim=seq_dim)[cp_rank].contiguous()
+            mask_list = [m.contiguous() for m in mask_row.chunk(cp_size, dim=seq_dim + 1)]
+            batch[key] = mask_list
+            continue
+        if val is not None:
+            seq_dim = 1 
+            val = val.chunk(cp_size, dim=seq_dim)[cp_rank].contiguous()
+            batch[key] = val 
+    
+    return batch

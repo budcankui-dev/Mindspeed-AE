@@ -480,16 +480,6 @@ def _add_rl_args(parser):
         help='The type of DPO loss to use.'
     )
     group.add_argument(
-        '--dpo-label-smoothing',
-        default=0.0,
-        help='The robust DPO label smoothing parameter in cDPO that should be between 0 and 0.5.'
-    )
-    group.add_argument(
-        '--dpo-ftx',
-        default=0.0,
-        help='The supervised fine-tuning loss coefficient in DPO training.'
-    )
-    group.add_argument(
         '--ref-model',
         default=None,
         help='Path to the reference model used for the PPO or DPO training.'

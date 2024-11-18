@@ -1,4 +1,5 @@
 # Copyright (c) 2024, HUAWEI CORPORATION.  All rights reserved.
+import sys
 import time
 from abc import ABC, abstractmethod
 import torch
@@ -198,7 +199,7 @@ class BaseTrainer(ABC):
                         sys.exit("The mindio_ttp package is not installed. Exiting.")
                     tft_init_controller_processor(enable_tls=False, tls_option_top_path='')
                     tft_register_processor(self.train_valid_test_dataset_provider, self.model_provider, self.model_type)
-                    iteration, num_floating_point_operations_so_far = tft_train(self.train_args, test_data_iterator_list)
+                    iteration, num_floating_point_operations_so_far = tft_train(self.train_args, self.test_data_iterator_list)
                 else:
                     iteration, num_floating_point_operations_so_far = train(*self.train_args)
 
