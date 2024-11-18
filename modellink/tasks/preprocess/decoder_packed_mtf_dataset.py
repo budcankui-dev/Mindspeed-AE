@@ -175,19 +175,36 @@ class DecoderPackedMTFDataset(torch.utils.data.Dataset):
                 "position_ids": self._cut_token(position_ids.numpy(), np.int64)
             }
         else:
-            res = {
-                "input_ids": self._cut_token(item["input_ids"], np.int64),
-                "attention_mask": self._cut_token(item["attention_mask"], np.int64),
-                "labels": self._cut_token(item["labels"], np.int64),
-            }
+            return self._cut_instruction_token(item, np.int64)
 
-        return res
-    
+
     def _cut_token(self, token, dtype):
         token_length = len(token)
-        if not self.args.no_cut_token and token_length >= self.seq_length:
+        if token_length >= self.seq_length:
             token = token[:self.seq_length]
         return token.astype(dtype)
+
+
+    def _cut_instruction_token(self, item, dtype):
+        IGNORE_INDEX = -100
+        prompt_length = (item["labels"] != IGNORE_INDEX).nonzero()[0][0]
+        prompt_ids = item["input_ids"][:prompt_length]
+        label_ids = item["labels"][prompt_length:]
+        source_len, target_len = _infer_seqlen(
+            len(prompt_ids), len(label_ids), self.seq_length
+        )
+        prompt_ids = prompt_ids[:source_len]
+        label_ids = label_ids[:target_len]
+        input_ids = np.append(prompt_ids, label_ids)
+        labels = np.append(IGNORE_INDEX * np.ones(source_len), label_ids)
+        res = {
+            "input_ids": input_ids.astype(dtype),
+            "attention_mask": np.ones_like(input_ids).astype(dtype),
+            "labels": labels.astype(dtype)
+        }
+
+        return res
+
 
     def _cut_pairwise_token(self, item, dtype):
         """Cut prompt and response proportionally for pairwise datasets."""

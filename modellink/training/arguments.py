@@ -555,8 +555,6 @@ def _add_training_args(parser):
                        help='scale embed tokens')
     group.add_argument('--dim-model-base', type=float, default=None,
                        help='dim-model-base')
-    group.add_argument('--no-cut-token', action='store_true', default=False,
-                       help='Used for not cut token in finetune.')
     group.add_argument('--scale-depth', type=float, default=None,
                        help='scale-depth')
     group.add_argument('--swap-attention', action='store_true', default=False,
