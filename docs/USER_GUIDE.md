@@ -62,7 +62,7 @@ git checkout core_r0.6.0
 cp -r megatron ../ModelLink/
 cd ..
 cd ModelLink
-git checkout 1.0.RC4
+git checkout 1.0.0
 mkdir logs
 mkdir model_from_hf
 mkdir dataset
@@ -88,6 +88,10 @@ pip install apex-0.1_ascend*-cp38-cp38m-linux_aarch64.whl
 
 # source ascend-toolkit 环境变量
 source /usr/local/Ascend/ascend-toolkit/set_env.sh 
+
+#CANN-NNAL默认安装路径为：/usr/local/Ascend/nnal
+#运行CANN-NNAL默认安装路径下atb文件夹中的环境配置脚本set_env.sh
+source /usr/local/Ascend/nnal/atb/set_env.sh 
 
 # 安装加速库
 git clone https://gitee.com/ascend/MindSpeed.git
