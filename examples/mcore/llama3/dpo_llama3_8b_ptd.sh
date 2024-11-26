@@ -1,23 +1,22 @@
 #!/bin/bash
-
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 
-GPUS_PER_NODE=8
+NPUS_PER_NODE=8
 MASTER_ADDR=localhost
-MASTER_PORT=6000
+MASTER_PORT=6001
 NNODES=1
 NODE_RANK=0
-WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
+WORLD_SIZE=$(($NPUS_PER_NODE*$NNODES))
 
 CKPT_SAVE_DIR="your model save ckpt path"
 DATA_PATH="your data path"
 TOKENIZER_MODEL="your tokenizer path"
-CKPT_LOAD_DIR="your model ckpt path"
-TP=2
-PP=4
+CKPT_LOAD_DIR="your model load ckpt path"
+TP=1
+PP=8
 
 DISTRIBUTED_ARGS="
-    --nproc_per_node $GPUS_PER_NODE \
+    --nproc_per_node $NPUS_PER_NODE \
     --nnodes $NNODES \
     --node_rank $NODE_RANK \
     --master_addr $MASTER_ADDR \
@@ -25,21 +24,21 @@ DISTRIBUTED_ARGS="
 "
 
 GPT_ARGS="
+    --variable-seq-lengths \
+    --cp-attention-mask-type general \
+    --sequence-parallel \
+    --use-fused-rotary-pos-emb \
+    --use-deter-comp \
     --tensor-model-parallel-size ${TP} \
     --pipeline-model-parallel-size ${PP} \
     --use-mcore-models \
     --micro-batch-size 1 \
     --global-batch-size 64 \
-    --sequence-parallel \
+    --use-mc2 \
     --use-flash-attn \
     --use-rotary-position-embeddings \
     --use-fused-rmsnorm \
     --use-fused-swiglu \
-    --rope-scaling-type llama3 \
-    --rope-scaling-factor 8.0 \
-    --low-freq-factor 1.0 \
-    --high-freq-factor 4.0 \
-    --original-max-position-embeddings 8192 \
     --tokenizer-type PretrainedFromHF \
     --tokenizer-name-or-path ${TOKENIZER_MODEL} \
     --num-layers 32 \
@@ -48,7 +47,7 @@ GPT_ARGS="
     --num-attention-heads 32 \
     --group-query-attention \
     --num-query-groups 8 \
-    --seq-length 8192 \
+    --seq-length 2048 \
     --max-position-embeddings 8192 \
     --make-vocab-size-divisible-by 1 \
     --padded-vocab-size 128256 \
@@ -64,27 +63,28 @@ GPT_ARGS="
     --swiglu \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \
-    --lr 1.25e-6 \
+    --lr 5e-8 \
     --train-iters 200 \
-    --lr-decay-style cosine \
-    --min-lr 1.25e-7 \
-    --weight-decay 1e-1 \
-    --lr-warmup-fraction 0.1 \
+    --lr-decay-style constant \
+    --min-lr 0.0 \
+    --weight-decay 0.0 \
+    --lr-warmup-fraction 0.0 \
     --clip-grad 1.0 \
     --adam-beta1 0.9 \
-    --adam-beta2 0.95 \
+    --adam-beta2 0.999 \
     --initial-loss-scale 4096 \
     --no-gradient-accumulation-fusion \
-    --finetune \
-    --bf16
+    --no-load-optim \
+    --no-load-rng \
+    --bf16 \
+    --finetune
 "
 
 DATA_ARGS="
     --data-path $DATA_PATH \
     --split 100,0,0 \
     --prompt-type llama3 \
-    --is-instruction-dataset \
-    --variable-seq-lengths
+    --is-instruction-dataset
 "
 
 OUTPUT_ARGS="
@@ -108,4 +108,4 @@ torchrun $DISTRIBUTED_ARGS posttrain_gpt.py \
     --distributed-backend nccl \
     --load ${CKPT_LOAD_DIR} \
     --save ${CKPT_SAVE_DIR} \
-    | tee logs/dpo_llama31_8b.log
+    | tee logs/dpo_llama3_8b_full_mcore.log

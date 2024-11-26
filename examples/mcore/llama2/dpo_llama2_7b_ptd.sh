@@ -26,6 +26,7 @@ DISTRIBUTED_ARGS="
 "
 
 GPT_ARGS="
+    --variable-seq-lengths \
     --use-mcore-models \
     --tensor-model-parallel-size ${TP} \
     --pipeline-model-parallel-size ${PP} \
@@ -54,6 +55,7 @@ GPT_ARGS="
     --use-fused-rmsnorm \
     --swiglu \
     --use-flash-attn \
+    --use-mc2 \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \
     --min-lr 1.25e-7 \
@@ -70,16 +72,20 @@ GPT_ARGS="
     --use-fused-swiglu \
     --use-fused-rotary-pos-emb \
     --overlap-grad-reduce \
-    --finetune \
     --bf16
 "
 
 DATA_ARGS="
     --data-path $DATA_PATH \
     --split 100,0,0 \
-    --prompt-type llama2 \
     --is-instruction-dataset \
-    --variable-seq-lengths
+    --log-throughput
+"
+
+RL_ARGS="
+    --stage dpo \
+    --dpo-loss-type sigmoid \
+    --is-pairwise-dataset
 "
 
 OUTPUT_ARGS="
@@ -89,18 +95,12 @@ OUTPUT_ARGS="
     --eval-iters 10 \
 "
 
-RL_ARGS="
-    --stage dpo \
-    --dpo-loss-type sigmoid \
-    --is-pairwise-dataset
-"
-
 torchrun $DISTRIBUTED_ARGS posttrain_gpt.py \
     $GPT_ARGS \
     $DATA_ARGS \
-    $OUTPUT_ARGS \
     $RL_ARGS \
+    $OUTPUT_ARGS \
     --distributed-backend nccl \
     --load $CKPT_LOAD_DIR \
     --save $CKPT_SAVE_DIR \
-    | tee logs/train_llama2_7b.log
+    | tee logs/dpo_llama2_7b_full.log

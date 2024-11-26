@@ -27,6 +27,8 @@
         - [2.2 微调数据集处理方法](#22-微调数据集处理方法)
           - [2.2.1 Alpaca风格数据集处理方法](#221-alpaca风格数据集处理方法)
           - [2.2.2 Sharegpt风格数据集处理方法](#222-sharegpt风格数据集处理方法)
+        - [2.3 RLHF任务数据集处理](#23-rlhf任务数据集处理)
+          - [2.3.1 Pairwise数据集处理](#231-pairwise数据集处理)
       - [ 3. 数据集合并](#-3-数据集合并)
   - [ 大模型分布式预训练](#-大模型分布式预训练)
       - [ 1. 准备工作](#-1-准备工作)
@@ -714,6 +716,12 @@ bash examples/legacy/llama2/data_convert_llama2_instruction.sh
 ```
 
 微调时，数据集路径输入 ./finetune_dataset/alpaca 即可
+
+##### 2.3 RLHF任务数据集处理
+
+###### 2.3.1 Pairwise数据集处理
+
+见：[Pairwise](./features/pairwise_dataset.md)数据集预处理说明。
 
 
 #### <span id="jump3.3"> 3. 数据集合并

@@ -429,8 +429,15 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
   </tr></thead>
 <tbody>
   <tr>
-    <td>偏好对齐</td>
-    <td>Offline DPO</td>
+    <td rowspan="1">数据预处理</td>
+    <td><a href="./docs/features/pairwise_dataset.md">Pairwise数据集处理</a></td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>【NAIE】</td>
+  </tr>
+  <tr>
+    <td rowspan="">偏好对齐</td>
+    <td><a href="./docs/features/offline_dpo.md">Offline DPO</a></td>
     <td>✅</td>
     <td>❌</td>
     <td>【NAIE】</td>
@@ -443,6 +450,7 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
     <td>【昇腾】</td>
   </tr>
 </tbody></table>
+
 
 ---
 
@@ -467,7 +475,7 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
       <td>【昇腾】</td>
     </tr>
     <tr>
-      <td rowspan="3">数据处理</td>
+      <td rowspan="4">数据处理</td>
       <td><a href="./docs/features/pretrain_dataset.md">预训练数据处理</a></td>
       <td>✅</td>
       <td>✅</td>
@@ -484,7 +492,13 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
       <td>✅</td>
       <td>✅</td>
       <td>【昇腾】</td>
-    </tr>  
+    </tr> 
+    <tr>
+      <td><a href="./docs/features/pairwise_dataset.md">Pairwise数据集处理</a></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>【NAIE】</td>
+    </tr>
     <tr>
       <td rowspan="2">分布式推理</td>
       <td>流式推理</td>
@@ -507,6 +521,7 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
     </tr>
   </tbody>
 </table>
+
 
 
 ---
