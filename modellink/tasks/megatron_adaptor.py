@@ -88,6 +88,10 @@ class MegatronAdaptation:
 
         from mindspeed.patch_utils import MindSpeedPatchesManager
         from mindspeed.megatron_adaptor import te_adaptation, apex_adaptation, torch_adaptation
+
+        # For torch >= 2.2.0
+        torch.compile = torch.jit.script
+
         te_adaptation(MindSpeedPatchesManager)
         apex_adaptation(MindSpeedPatchesManager)
         torch_adaptation(MindSpeedPatchesManager)
@@ -608,8 +612,6 @@ class LegacyAdaptation(MegatronAdaptationABC):
         MegatronAdaptation.register('megatron.training.arguments.core_transformer_config_from_args',
                                     core_transformer_config_from_args_wrapper)
 
-        # For torch 2.2.0
-        torch.compile = torch.jit.script
 
     def patch_optimizer(self):
         args = MegatronAdaptation.get_args()
