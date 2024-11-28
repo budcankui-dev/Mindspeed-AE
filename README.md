@@ -444,7 +444,7 @@ MindSpeed-LLM作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](
   </tr>
   <tr>
     <td>奖励模型</td>
-    <td>ORM</td>
+    <td><a href="./docs/features/outcome_reward_model.md">ORM</a></td>
     <td>✅</td>
     <td>❌</td>
     <td>【昇腾】</td>
