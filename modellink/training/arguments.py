@@ -470,27 +470,32 @@ def _add_rl_args(parser):
     group = parser.add_argument_group(title='reinforce learning in dpo')
     group.add_argument(
         '--dpo-beta',
+        type=float,
         default=0.1,
         help='The beta parameter for the DPO loss.'
     )
     group.add_argument(
         '--dpo-loss-type',
+        type=str,
         default="sigmoid",
         choices=["sigmoid", "hinge", "ipo"],
         help='The type of DPO loss to use.'
     )
     group.add_argument(
         '--ref-model',
+        type=str,
         default=None,
         help='Path to the reference model used for the PPO or DPO training.'
     )
     group.add_argument(
         '--dpo-label-smoothing',
+        type=float,
         default=0.0,
         help="The robust DPO label smoothing parameter in cDPO that should be between 0 and 0.5.",
     )
     group.add_argument(
         '--pref-ftx',
+        type=float,
         default=0.0,
         help="The supervised fine-tuning loss coefficient in DPO training.",
     )
