@@ -6,12 +6,12 @@
     ```
 
 ## 运行用户建议
-出于安全性及权限最小化角度考虑，不建议使用root等管理员类型账户使用Modellink。
+出于安全性及权限最小化角度考虑，不建议使用root等管理员类型账户使用MindSpeed-LLM。
 
 ## 文件权限控制
 1. 建议用户在主机（包括宿主机）及容器中设置运行系统umask值为0027及以上，保障新增文件夹默认最高权限为750，新增文件默认最高权限为640。
-2. 建议用户对个人数据、商业资产、源文件、训练过程中保存的各类文件等敏感内容做好权限管控。涉及场景如Modellink安装目录权限管控、多用户使用共享数据集权限管控，管控权限可参考表1进行设置。
-3. Modellink在数据预处理中会生成训练数据，在训练过程会生成权重文件，文件权限默认640，用户可根据实际需求对生成文件权限进行进阶管控。
+2. 建议用户对个人数据、商业资产、源文件、训练过程中保存的各类文件等敏感内容做好权限管控。涉及场景如MindSpeed-LLM安装目录权限管控、多用户使用共享数据集权限管控，管控权限可参考表1进行设置。
+3. MindSpeed-LLM在数据预处理中会生成训练数据，在训练过程会生成权重文件，文件权限默认640，用户可根据实际需求对生成文件权限进行进阶管控。
 
 **表1 文件（夹）各场景权限管控推荐最大值**
 | 类型          | linux权限参考最大值 |
@@ -59,7 +59,7 @@
 | 自研 | 不涉及                                                                                                            | modellink/core/transformer/moe/moe_utils.py:135                                     | https://arxiv.org/abs/2101.03961               | 论文地址      |
 
 ## 公开接口声明
-MindSpeed-LLM 暂时未发布wheel包，无正式对外公开接口，所有功能均通过shell脚本调用。5个入口脚本分别为[pretrain_gpt.py](https://gitee.com/ascend/ModelLink/blob/master/pretrain_gpt.py), [inference.py](https://gitee.com/ascend/ModelLink/blob/master/inference.py), [evaluation.py](https://gitee.com/ascend/ModelLink/blob/master/evaluation.py), [preprocess_data.py](https://gitee.com/ascend/ModelLink/blob/master/preprocess_data.py) 和 [convert_ckpt.py](https://gitee.com/ascend/ModelLink/blob/master/convert_ckpt.py)。
+MindSpeed-LLM 暂时未发布wheel包，无正式对外公开接口，所有功能均通过shell脚本调用。5个入口脚本分别为[pretrain_gpt.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/pretrain_gpt.py), [inference.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/inference.py), [evaluation.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/evaluation.py), [preprocess_data.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/preprocess_data.py) 和 [convert_ckpt.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/convert_ckpt.py)。
 
 
 ## 通信安全加固

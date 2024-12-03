@@ -55,7 +55,7 @@ python ./preprocess_data.py \
 
   可选，不使用模型最后的 layernorm 层
 
-## **ModelLink  与 <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main">LLaMA-Factory</a> loss 对比**：
+## **MindSpeed-LLM  与 <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main">LLaMA-Factory</a> loss 对比**：
 
 数据集：dpo_en
 

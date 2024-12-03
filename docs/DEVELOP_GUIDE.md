@@ -21,8 +21,8 @@ cd MindSpeed
 pip install -r requirements.txt 
 pip install -e .
 
-git clone https://gitee.com/ascend/ModelLink.git
-cp -r ModelLink/modellink Megatron-LM
+git clone https://gitee.com/ascend/MindSpeed-LLM.git
+cp -r MindSpeed-LLM/modellink Megatron-LM
 ```
 
 ### 3. 快速上手
@@ -30,10 +30,10 @@ cp -r ModelLink/modellink Megatron-LM
 以 Megatron-LM GPT 预训练为例：
 
 ```bash
-# 将 Megatron-LM 下的 pretrain_gpt.py 替换为 ModelLink 下的 pretrain_gpt.py
-cp ModelLink/pretrain_gpt.py Megatron-LM/
-# 将 ModelLink 下的 preprocess_data.py 拷贝到 Megatron-LM
-cp ModelLink/preprocess_data.py Megatron-LM/
+# 将 Megatron-LM 下的 pretrain_gpt.py 替换为 MindSpeed-LLM 下的 pretrain_gpt.py
+cp MindSpeed-LLM/pretrain_gpt.py Megatron-LM/
+# 将 MindSpeed-LLM 下的 preprocess_data.py 拷贝到 Megatron-LM
+cp MindSpeed-LLM/preprocess_data.py Megatron-LM/
 ```
 
 **(1) 转换预训练数据集**

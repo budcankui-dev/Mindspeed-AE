@@ -1,4 +1,4 @@
-Modellink支持基于昇腾芯片采集profiling数据，以提供对模型运行情况的分析，主要API如下：
+MindSpeed-LLM支持基于昇腾芯片采集profiling数据，以提供对模型运行情况的分析，主要API如下：
 
 
 ```bash

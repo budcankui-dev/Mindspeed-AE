@@ -57,13 +57,13 @@
 #### <span id="jump1.1"> 1. 仓库拉取
 
 ```shell
-git clone https://gitee.com/ascend/ModelLink.git 
+git clone https://gitee.com/ascend/MindSpeed-LLM.git 
 git clone https://github.com/NVIDIA/Megatron-LM.git
 cd Megatron-LM
 git checkout core_r0.6.0
-cp -r megatron ../ModelLink/
+cp -r megatron ../MindSpeed-LLM/
 cd ..
-cd ModelLink
+cd MindSpeed-LLM
 git checkout 1.0.0
 mkdir logs
 mkdir model_from_hf
@@ -313,7 +313,7 @@ mcore转legacy时设置此参数以指定保存权重格式为legacy
 
 其余参数意义参考2.1
 
-注：上述权重legacy和mcore互转为高阶功能，modellink基于llama2提供基础能力，并进行版本迭代看护，其余模型的支持需要用户自行修改支持
+注：上述权重legacy和mcore互转为高阶功能，MindSpeed-LLM基于llama2提供基础能力，并进行版本迭代看护，其余模型的支持需要用户自行修改支持
 
 ##### 2.4 lora权重与base权重合并
 
@@ -1105,7 +1105,7 @@ bash examples/legacy/llama2/chat_llama2_7b_ptd.sh
 模型对话模板，作用与`--hf-chat-template`一致，但不需要模型的tokenizer已经具备`chat_template`属性，微调后推理对话时应选择模型对应的对话模板
 
 #### <span id="jump6.3"> 3. Lora推理
-ModelLink 流式推理脚本命名风格及启动方法为：
+MindSpeed-LLM 流式推理脚本命名风格及启动方法为：
 ```shell
 # Legacy
 # 命名及启动：examples/legacy/model_name/generate_xxx.sh

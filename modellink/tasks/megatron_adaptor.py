@@ -63,7 +63,7 @@ class MegatronAdaptation:
             return cls._args
 
         from modellink.training.arguments import process_args
-        parser = argparse.ArgumentParser(description='ModelLink Arguments', allow_abbrev=False)
+        parser = argparse.ArgumentParser(description='MindSpeed-LLM Arguments', allow_abbrev=False)
         _args, _ = process_args(parser).parse_known_args()
         return _args
 

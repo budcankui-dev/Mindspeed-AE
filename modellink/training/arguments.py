@@ -991,7 +991,7 @@ def validate_args_decorator(megatron_validate_args):
         _add_dummy_args(args)
 
         from modellink.training.utils import print_args
-        print_args('ModelLink Arguments', args)
+        print_args('MindSpeed-LLM Arguments', args)
         return args
 
     return wrapper
