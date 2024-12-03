@@ -65,6 +65,10 @@ ROPE_ARGS="
 "
 
 GPT_ARGS="
+    --recompute-granularity full \
+    --recompute-method uniform \
+    --recompute-num-layers 1 \
+
     --shape-order BNSD \
     --reuse-fp32-param \
     --load $CKPT_LOAD_DIR \
