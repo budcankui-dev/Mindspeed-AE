@@ -340,6 +340,7 @@ def flash_attention_forward(
 
     if use_sliding_windows:
         args.pre_tockens = args.sliding_window
+        args.sparse_mode = 4
 
     pse = None
     size_record = key.shape
