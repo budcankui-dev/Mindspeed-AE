@@ -12,9 +12,10 @@ def get_communication_output(input_, reduce_tensor=False):
         return input_
     dim_size = list(input_.size())
     if reduce_tensor:
-        assert (
-                dim_size[0] % tp_world_size == 0
-        ), "First dimension of the tensor should be divisible by tensor parallel size"
+        if dim_size[0] % tp_world_size != 0:
+            raise ValueError(
+                "First dimension of the tensor should be divisible by tensor parallel size"
+            )
 
         dim_size[0] = dim_size[0] // tp_world_size
     else:

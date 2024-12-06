@@ -29,7 +29,7 @@ from modellink.tasks.data.collator import PairwiseDataCollatorWithPadding
 def build_pretraining_data_loader(dataset, consumed_samples):
     """Buld dataloader given an input dataset."""
 
-    if dataset is None:
+    if dataset is None or len(dataset) == 0:
         return None
     args = get_args()
 

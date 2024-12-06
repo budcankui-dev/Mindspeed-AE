@@ -109,7 +109,7 @@ OUTPUT_ARGS=(
     --log-interval 1
     --save-interval ${TRAIN_ITER}
     --eval-interval ${TRAIN_ITER}
-    --eval-iters 1
+    --eval-iters 0
     --no-load-optim
     --no-load-rng
     --no-save-optim

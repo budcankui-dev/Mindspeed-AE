@@ -69,7 +69,8 @@ eval_templates = {}
 
 def get_eval_template(name: str) -> "EvalTemplate":
     eval_template = eval_templates.get(name, None)
-    assert eval_template is not None, "Template {} does not exist.".format(name)
+    if eval_template is None:
+        raise ValueError("Template {} does not exist.".format(name))
     return eval_template
 
 

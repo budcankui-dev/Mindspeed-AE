@@ -104,7 +104,7 @@ OUTPUT_ARGS="
     --log-interval 1 \
     --save-interval 15 \
     --eval-interval 15 \
-    --eval-iters 10 \
+    --eval-iters 0 \
     --no-load-optim \
     --no-load-rng \
     --save $CKPT_SAVE_DIR \

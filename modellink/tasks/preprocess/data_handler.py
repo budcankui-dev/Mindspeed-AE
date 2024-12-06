@@ -747,10 +747,12 @@ def build_dataset(args):
                 logger.info("loading data from a local python script")
                 raw_datasets = load_dataset(
                     args.input,
+                    data_dir='./' if not args.script_data_dir else args.script_data_dir,
                     split=split_flag,
                     num_proc=None if args.streaming else args.workers,
                     cache_dir=cache_dir,
-                    streaming=args.streaming
+                    streaming=args.streaming,
+                    trust_remote_code=False
                 )
             else:
                 data_files = [args.input] if os.path.isfile(args.input) else \
@@ -766,7 +768,8 @@ def build_dataset(args):
                         data_files=filtered_data_files,
                         num_proc=None if args.streaming else args.workers,
                         cache_dir=cache_dir,
-                        streaming=args.streaming
+                        streaming=args.streaming,
+                        trust_remote_code=False
                     )
                 else:
                     raise Exception("unknown local data!")
@@ -777,7 +780,8 @@ def build_dataset(args):
                 split=split_flag,
                 num_proc=None if args.streaming else args.workers,
                 cache_dir=cache_dir,
-                streaming=args.streaming
+                streaming=args.streaming,
+                trust_remote_code=False
             )
         if raw_datasets is None:
             raise Exception("unknown data!")

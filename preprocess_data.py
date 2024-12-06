@@ -133,6 +133,8 @@ def add_data_args(parser):
                        help="Dataset field mapping.")
     group.add_argument("--pack", action='store_true',
                        help="Package multiple samples into one sample in a fine tuning dataset")
+    group.add_argument("--script-data-dir", type=str, default=None,
+                       help="Python script dataset direction")
 
 
 def add_tokenizer_args(parser):

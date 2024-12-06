@@ -127,7 +127,7 @@ OUTPUT_ARGS="
     --train-iters 15 \
     --save-interval 10000 \
     --eval-interval 10000 \
-    --eval-iters 1 \
+    --eval-iters 0 \
     --finetune
 "
 

@@ -98,7 +98,7 @@ OUTPUT_ARGS="
     --log-interval 1 \
     --save-interval 500 \
     --eval-interval 500 \
-    --eval-iters 1 \
+    --eval-iters 0 \
 "
 
 torchrun $DISTRIBUTED_ARGS $basepath/posttrain_gpt.py \

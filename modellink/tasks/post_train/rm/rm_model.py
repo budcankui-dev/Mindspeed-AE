@@ -33,7 +33,11 @@ class RewardModelHead(RowParallelLinear):
         config = deepcopy(config)
         config.params_dtype = dtype
 
-        assert output_size > 0, "Output size of reward model head should be greater than zero"
+        if output_size <= 0:
+            raise ValueError(
+                "Output size of reward model head should be greater than zero"
+            )
+
 
         super().__init__(
             input_size,
@@ -159,7 +163,8 @@ class GPTRewardModel(GPTModel):
         else:
             # reward models trained on older containers do not have this extra state(which keeps track of fp8 states)
             # we will ignore it for backwards compatability since we don't support FP8 in reward model training
-            assert self.config.fp8 is None, "fp8 is not supported for the reward model"
+            if self.config.fp8 is not None:
+                raise ValueError("fp8 is not supported for the reward model")
             sharded_state_dict = {k: v for k, v in sharded_state_dict.items() if "rm_head._extra_state" not in k}
 
         return sharded_state_dict

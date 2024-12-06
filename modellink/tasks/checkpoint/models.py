@@ -394,7 +394,7 @@ class HuggingfaceModel(ModelBase):
             load_dir = self.args_cmd.save_dir
         else:
             load_dir = self.args_cmd.load_dir
-        self.module = [AutoModelForCausalLM.from_pretrained(load_dir, device_map=device_map, trust_remote_code=trust_remote_code)]
+        self.module = [AutoModelForCausalLM.from_pretrained(load_dir, device_map=device_map, trust_remote_code=trust_remote_code, local_files_only=True)]
         if hasattr(self.args, "torch_dtype") and self.args.torch_dtype in ["float16", "bfloat16"]:
             self.module[0] = self.module[0].to(eval(f'torch.{self.args.torch_dtype}'))
 
