@@ -6,7 +6,7 @@ decorator
 scipy
 sentencepiece
 einops
-datasets
+datasets>=2.16.0
 pybind11
 accelerate
 six

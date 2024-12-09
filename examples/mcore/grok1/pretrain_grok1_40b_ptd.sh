@@ -1,6 +1,7 @@
 #!/bin/bash
 # To check the performance of a Dropless MoE model, we should run the model for at least 500 iterations or resume from trained checkpoints.
 export CUDA_DEVICE_MAX_CONNECTIONS=1
+export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 
 GPUS_PER_NODE=8
 # Change for multinode config
@@ -51,6 +52,7 @@ MODEL_ARGS="
 "
 
 MOE_ARGS="
+    --moe-token-dispatcher-type alltoall \
     --num-experts 8 \
     --expert-model-parallel-size 2 \
     --moe-router-load-balancing-type aux_loss \
