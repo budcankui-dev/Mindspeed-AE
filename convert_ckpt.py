@@ -20,10 +20,10 @@ import os
 import sys
 from functools import wraps
 import torch.multiprocessing as mp
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from pretrain_gpt import model_provider
 
-MODULE_ROOT = "modellink.tasks.checkpoint"
+MODULE_ROOT = "mindspeed_llm.tasks.checkpoint"
 
 
 def load_plugin(plugin_type, name):

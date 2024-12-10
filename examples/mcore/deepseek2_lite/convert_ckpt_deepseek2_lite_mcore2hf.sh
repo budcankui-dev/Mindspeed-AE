@@ -12,6 +12,6 @@ python convert_ckpt.py \
     --target-tensor-parallel-size 1 \
     --target-pipeline-parallel-size 1 \
     --target-expert-parallel-size 1 \
-    --spec modellink.tasks.models.spec.deepseek_spec layer_spec \
+    --spec mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec \
     --load-dir ./model_weights/deepseek2_lite_mcore/ \
     --save-dir ./model/deepseek2_lite/

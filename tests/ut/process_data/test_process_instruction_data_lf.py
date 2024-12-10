@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import pytest
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from tests.test_tools.utils import build_args, create_testconfig, compare_file_md5_same
 from preprocess_data import main
 

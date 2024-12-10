@@ -51,15 +51,15 @@
 
 | 类型 | 开源代码地址 | 文件名                                                      | 公网IP地址/公网URL地址/域名/邮箱地址                         | 用途说明     |
 | ---- | ------------ | ----------------------------------------------------------- | ------------------------------------------------------------ | ------------ |
-| 自研 | 不涉及       | modellink/model/language_model.py:85                        | https://github.com/kingoflolz/mesh-transformer-jax/          | 详情地址     |
+| 自研 | 不涉及       | mindspeed_llm/model/language_model.py:85                        | https://github.com/kingoflolz/mesh-transformer-jax/          | 详情地址     |
 | 自研 | 涉及         | tests/test_tools/dist_test.py:6                             | https://github.com/microsoft/DeepSpeed/blob/master/tests/unit/common.py | 源代码地址   |
 | 自研 | 涉及         | tests/pipeline/conftest.py:6                                | https://github.com/microsoft/DeepSpeed/blob/master/tests/conftest.py | 源代码地址   |
 | 自研 | 涉及         | tests/ut/conftest.py:6                                      | https://github.com/microsoft/DeepSpeed/blob/master/tests/conftest.py | 源代码地址   |
 | 自研 | 不涉及       | examples/mcore/gemma/data_convert_gemma_pretrain.sh:5       | https://huggingface.co/datasets/pleisto/wikipedia-cn-20230720-filtered/resolve/main/wikipedia-cn-20230720-filtered.json?download=true | 数据下载地址 |
-| 自研 | 不涉及       | modellink/core/transformer/moe/moe_utils.py:135             | https://arxiv.org/abs/2101.03961                             | 论文地址     |
-| 自研 | 涉及         | modellink/tasks/data/collator.py:4                          | https://github.com/OpenAccess-AI-Collective/axolotl/blob/main/src/axolotl/monkeypatch/utils.py | 源代码地址   |
-| 自研 | 涉及         | modellink/core/distributed/distributed_data_parallel.py:126 | https://github.com/NVIDIA/TransformerEngine/pull/719         | 源代码地址   |
-| 自研 | 不涉及       | modellink/core/datasets/gpt_dataset.py:159, 219             | https://gitee.com/ascend/MindSpeed-LLM/wikis/megatron%20data%20helpers%E5%8F%AF%E8%83%BD%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98 | 详情地址     |
+| 自研 | 不涉及       | mindspeed_llm/core/transformer/moe/moe_utils.py:135             | https://arxiv.org/abs/2101.03961                             | 论文地址     |
+| 自研 | 涉及         | mindspeed_llm/tasks/data/collator.py:4                          | https://github.com/OpenAccess-AI-Collective/axolotl/blob/main/src/axolotl/monkeypatch/utils.py | 源代码地址   |
+| 自研 | 涉及         | mindspeed_llm/core/distributed/distributed_data_parallel.py:126 | https://github.com/NVIDIA/TransformerEngine/pull/719         | 源代码地址   |
+| 自研 | 不涉及       | mindspeed_llm/core/datasets/gpt_dataset.py:159, 219             | https://gitee.com/ascend/MindSpeed-LLM/wikis/megatron%20data%20helpers%E5%8F%AF%E8%83%BD%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98 | 详情地址     |
 
 ## 公开接口声明
 MindSpeed-LLM 暂时未发布wheel包，无正式对外公开接口，所有功能均通过shell脚本调用。5个入口脚本分别为[pretrain_gpt.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/pretrain_gpt.py), [inference.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/inference.py), [evaluation.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/evaluation.py), [preprocess_data.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/preprocess_data.py) 和 [convert_ckpt.py](https://gitee.com/ascend/MindSpeed-LLM/blob/master/convert_ckpt.py)。
@@ -80,4 +80,4 @@ MindSpeed-LLM 暂时未发布wheel包，无正式对外公开接口，所有功�
 | ------------------------------------- | ------------------------------------------------ | ---------- | ---------- |
 | 用户下载并使用HuggingFace的开源数据集 | 调用`load_dataset`函数，并填写目标开源数据集路径 | 随机端口     | 无风险   |
 | 使用`from_pretrained`信任特定代码，使用相关模型的实现     | 调用`from_pretrained`函数，设置`trust_remote_code=True` | 随机端口   | 无风险   |
-| 使用ModelLink进行训练任务时，新增32个端口 | 使用pytorch分布式训练拉起任一任务 | [1024,65520]内 |业务需要，无风险     |
+| 使用MindSpeed-LLM进行训练任务时，新增32个端口 | 使用pytorch分布式训练拉起任一任务 | [1024,65520]内 |业务需要，无风险     |

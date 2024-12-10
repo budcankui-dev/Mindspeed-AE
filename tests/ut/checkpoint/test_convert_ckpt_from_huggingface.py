@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 import torch
 
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from tests.test_tools.utils import judge_expression
 from tests.test_tools.utils import weight_compare
 

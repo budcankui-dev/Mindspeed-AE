@@ -1,6 +1,6 @@
 # Copyright (c) 2024, HUAWEI CORPORATION.  All rights reserved.
-from modellink import megatron_adaptor
-from modellink.tasks.post_train.launcher import AutoTrainer
+from mindspeed_llm import megatron_adaptor
+from mindspeed_llm.tasks.post_train.launcher import AutoTrainer
 
 
 def launch():

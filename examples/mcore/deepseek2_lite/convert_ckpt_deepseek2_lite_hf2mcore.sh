@@ -14,7 +14,7 @@ python convert_ckpt.py \
    --target-tensor-parallel-size 1 \
    --target-pipeline-parallel-size 1 \
    --target-expert-parallel-size 8 \
-   --spec modellink.tasks.models.spec.deepseek_spec layer_spec \
+   --spec mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec \
    --load-dir ./model_from_hf/deepseek_v2_lite/ \
    --save-dir ./model_weights/deepseek2_lite_mcore/ \
    --tokenizer-model ./model_from_hf/deepseek_v2_lite/

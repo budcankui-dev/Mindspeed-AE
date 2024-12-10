@@ -15,6 +15,8 @@
 
 MindSpeed-LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](https://www.hiascend.com/) 提供端到端的大语言模型训练方案，包含分布式预训练、分布式指令微调、分布式偏好对齐以及对应的开发工具链。
 
+***<small>注 : 原包名 modellink 更改为 mindspeed_llm </small>***
+
 ---
 
 ## MindSpeed-LLM 大模型训练框架功能特性概览

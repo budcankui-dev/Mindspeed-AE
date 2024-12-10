@@ -4,16 +4,16 @@ import torch
 import torch_npu
 import torch.distributed as dist
 
-# To activate modellink.patches.__init__
-from modellink import megatron_adaptor
+# To activate mindspeed_llm.patches.__init__
+from mindspeed_llm import megatron_adaptor
 from megatron.training.global_vars import set_args
 from megatron.training.arguments import parse_args
 from mindspeed.model.transformer import get_attention_mask
 
-from modellink.training.utils import seed_all
+from mindspeed_llm.training.utils import seed_all
 from tests.test_tools.dist_test import DistributedTest
 from tests.test_tools.utils import initialize_model_parallel
-from modellink.core.transformer.dot_product_attention import do_ring_context_parallel
+from mindspeed_llm.core.transformer.dot_product_attention import do_ring_context_parallel
 
 
 def get_data_on_this_cp_rank(data, cp_size, cp_rank, dim=0):

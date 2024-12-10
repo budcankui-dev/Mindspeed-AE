@@ -16,4 +16,4 @@ python convert_ckpt.py \
    --load-dir ./model_from_hf/deepseek2-hf/ \
    --save-dir ./model_weights/deepseek2-mcore/ \
    --tokenizer-model ./model_from_hf/deepseek2-hf/
-   --spec modellink.tasks.models.spec.deepseek_spec layer_spec
+   --spec mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec

@@ -5,8 +5,8 @@ import torch_npu
 import numpy as np
 import torch.distributed as dist
 
-# To activate modellink.patches.__init__
-import modellink
+# To activate mindspeed_llm.patches.__init__
+import mindspeed_llm
 from megatron.training.global_vars import set_args
 from megatron.training.arguments import parse_args
 from mindspeed.core.context_parallel.adaptive_context_parallel import adaptive_attn_context_parallel
@@ -27,7 +27,7 @@ from mindspeed.core.context_parallel.utils import (set_scheduling_info,
 
 from tests.test_tools.dist_test import DistributedTest
 from tests.test_tools.utils import initialize_model_parallel
-from modellink.training.utils import seed_all
+from mindspeed_llm.training.utils import seed_all
 
 DEVICE_NAME = torch_npu.npu.get_device_name(0)[:10]
 

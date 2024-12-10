@@ -184,7 +184,7 @@ python convert_ckpt.py \
 
 【--model-type-hf】
 
-huggingface模型类别，默认为llama2，目前支持的模型见 [model_cfg.json](https://gitee.com/ascend/MindSpeed-LLM/blob/master/modellink/tasks/checkpoint/model_cfg.json)
+huggingface模型类别，默认为llama2，目前支持的模型见 [model_cfg.json](https://gitee.com/ascend/MindSpeed-LLM/blob/master/mindspeed_llm/tasks/checkpoint/model_cfg.json)
 
 【--tokenizer-model】
 

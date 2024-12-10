@@ -142,7 +142,7 @@ CKPT_LOAD_DIR="./model_weights/llama-2-7b-legacy/"
 
 【--prompt-type】
 
-用于指定模型模板，能够让base模型微调后能具备更好的对话能力。`prompt-type`的可选项可以在[`templates`](../../modellink/tasks/preprocess/templates.py)文件内查看。
+用于指定模型模板，能够让base模型微调后能具备更好的对话能力。`prompt-type`的可选项可以在[`templates`](../../mindspeed_llm/tasks/preprocess/templates.py)文件内查看。
 
 【--variable-seq-lengths】
 

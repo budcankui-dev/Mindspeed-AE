@@ -9,7 +9,7 @@ import pytest
 import torch
 import torch.distributed as dist
 
-import modellink
+import mindspeed_llm
 from convert_ckpt import main
 from tests.test_tools.dist_test import DistributedTest
 from tests.test_tools.utils import (build_args, create_testconfig, run_cmd,

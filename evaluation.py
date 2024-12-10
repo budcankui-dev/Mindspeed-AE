@@ -23,7 +23,7 @@ from typing import Union
 
 from torch import distributed as dist
 from transformers import AutoTokenizer
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from megatron.core.models.gpt.gpt_layer_specs import get_gpt_layer_with_transformer_engine_spec, \
     get_gpt_layer_local_spec
 from megatron.core.transformer.spec_utils import import_module
@@ -33,16 +33,16 @@ from megatron.legacy.model import GPTModel
 from megatron.training.arguments import core_transformer_config_from_args
 from megatron.training.yaml_arguments import core_transformer_config_from_yaml
 
-from modellink.tasks.inference.module import GPTModelInfer, MegatronModuleForCausalLM
-from modellink.tasks.evaluation.utils import add_text_generate_args
-from modellink.tasks.evaluation.eval_api.chat import Chat
-from modellink.tasks.evaluation.eval_impl.boolq_eval import BoolqEval
-from modellink.tasks.evaluation.eval_impl.gsm8k_eval import Gsm8kEval
-from modellink.tasks.evaluation.eval_impl.mmlu_eval import MmluEval
-from modellink.tasks.evaluation.eval_impl.ceval_exam import CEvalExam
-from modellink.tasks.evaluation.eval_impl.bbh_eval import BBHEval
-from modellink.tasks.evaluation.eval_impl.agi_eval import AGIEvalExam
-from modellink.tasks.evaluation.eval_impl.human_eval import HumanEval
+from mindspeed_llm.tasks.inference.module import GPTModelInfer, MegatronModuleForCausalLM
+from mindspeed_llm.tasks.evaluation.utils import add_text_generate_args
+from mindspeed_llm.tasks.evaluation.eval_api.chat import Chat
+from mindspeed_llm.tasks.evaluation.eval_impl.boolq_eval import BoolqEval
+from mindspeed_llm.tasks.evaluation.eval_impl.gsm8k_eval import Gsm8kEval
+from mindspeed_llm.tasks.evaluation.eval_impl.mmlu_eval import MmluEval
+from mindspeed_llm.tasks.evaluation.eval_impl.ceval_exam import CEvalExam
+from mindspeed_llm.tasks.evaluation.eval_impl.bbh_eval import BBHEval
+from mindspeed_llm.tasks.evaluation.eval_impl.agi_eval import AGIEvalExam
+from mindspeed_llm.tasks.evaluation.eval_impl.human_eval import HumanEval
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 logging.getLogger().setLevel(logging.INFO)

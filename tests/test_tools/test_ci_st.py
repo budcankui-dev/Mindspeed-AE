@@ -1,5 +1,5 @@
 import pytest
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from tests.test_tools.acquire_json import transfer_logs_as_json, read_json
 
 MEMO_INFO = "memo info"

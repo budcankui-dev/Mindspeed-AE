@@ -22,7 +22,7 @@ pip install -r requirements.txt
 pip install -e .
 
 git clone https://gitee.com/ascend/MindSpeed-LLM.git
-cp -r MindSpeed-LLM/modellink Megatron-LM
+cp -r MindSpeed-LLM/mindspeed_llm Megatron-LM
 ```
 
 ### 3. 快速上手

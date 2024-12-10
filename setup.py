@@ -26,7 +26,7 @@ __version__ = '0.0.1'
 __author__ = 'Ascend'
 __long_description__ = 'MindSpeed-LLM for LLMs of Ascend'
 __keywords__ = 'Ascend, langauge, deep learning, NLP'
-__package_name__ = 'modellink'
+__package_name__ = 'mindspeed_llm'
 __contact_names__ = 'Ascend'
 
 
@@ -56,8 +56,8 @@ try:
 
     ASCEND_TOOLKIT_HOME = os.environ.get("ASCEND_TOOLKIT_HOME")
     op_files = []
-    op_files += glob.glob("modellink/te/ops/csrc/*.cpp")
-    op_files += glob.glob("modellink/te/ops/csrc/cann/*.cpp")
+    op_files += glob.glob("mindspeed_llm/te/ops/csrc/*.cpp")
+    op_files += glob.glob("mindspeed_llm/te/ops/csrc/cann/*.cpp")
     ext_ops = cpp_extension.NpuExtension(
         name="ascendspeed_te_ops",
         sources=op_files,
@@ -78,7 +78,7 @@ except Exception:
     print('Can not find env : ASCEND_TOOLKIT_HOME or ATB_HOME_PATH, ops setup failed')
 
 setuptools.setup(
-    package_data={'modellink':['modellink/data/Makefile']},
+    package_data={'mindspeed_llm':['mindspeed_llm/data/Makefile']},
     name=__package_name__,
     # Versions should comply with PEP440.
     version=__version__,

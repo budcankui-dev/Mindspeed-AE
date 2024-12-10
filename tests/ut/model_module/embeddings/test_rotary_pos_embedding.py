@@ -17,7 +17,7 @@ from types import SimpleNamespace
 from pathlib import Path
 import pytest
 import torch
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 from tests.test_tools.dist_test import create_testconfig
 from megatron.core.models.common.embeddings.rotary_pos_embedding import RotaryEmbedding
 
@@ -35,8 +35,8 @@ class TestRotaryPosEmbedding:
             test_name_space.rotary_base = request.getfixturevalue("rotary_base")
             return test_name_space
         # set up name space function
-        import modellink
-        setattr(modellink.core.models.common.embeddings.rotary_pos_embedding, "get_args", get_test_namespace)
+        import mindspeed_llm
+        setattr(mindspeed_llm.core.models.common.embeddings.rotary_pos_embedding, "get_args", get_test_namespace)
 
     @pytest.mark.parametrize("rotary_param, chatglm, rotary_base, seq, expected", test_config["test_rotary_pos_embedding"])
     def test_rotary_pos_embedding(self, mock_dependency, rotary_param, chatglm, rotary_base, seq, expected):

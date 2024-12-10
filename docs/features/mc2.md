@@ -5,7 +5,7 @@
 
 若在非指定版本中尝试采用该配置，可能触发系统级的异常行为，包括但不限于运行时错误。
 
-MindSpeed-LLM 中 mc2 功能默认关闭，如需开启MC2，需将 `modellink/training/arguments.py` 文件下，`validate_args_decorator`函数中的`args.use_mc2 = False`语句注释掉。
+MindSpeed-LLM 中 mc2 功能默认关闭，如需开启MC2，需将 `mindspeed_llm/training/arguments.py` 文件下，`validate_args_decorator`函数中的`args.use_mc2 = False`语句注释掉。
 
 ## 问题分析
 
@@ -21,7 +21,7 @@ MC2通过融合算子的方式将matmul计算和集合通信操作进行融合�
 
 在python脚本侧将原本串行的matmul和all_gather/reduce_scatter操作通过MC2融合算子接口进行了融合。
 
-具体实现参见[link](../../modellink/core/tensor_parallel/ascend_turbo/mc2_linears_seq_parallel.py)。
+具体实现参见[link](../../mindspeed_llm/core/tensor_parallel/ascend_turbo/mc2_linears_seq_parallel.py)。
 
 MC2算子接口参见[link](https://www.hiascend.com/document/detail/zh/Pytorch/60RC1/apiref/apilist/ptaoplist_000449.html)。
 

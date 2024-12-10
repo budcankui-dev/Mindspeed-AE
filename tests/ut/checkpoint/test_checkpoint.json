@@ -53,7 +53,7 @@
                 "model-type-hf": "deepseek2",
                 "params-dtype": "bf16",
                 "tokenizer-model":"/data/ci/deepseek2/hf/deepseek2_hf",
-                "spec":"modellink.tasks.models.spec.deepseek_spec layer_spec"
+                "spec":"mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec"
             }
         }
     ],
@@ -73,7 +73,7 @@
                 "moe-grouped-gemm": null,
                 "model-type-hf": "deepseek2",
                 "params-dtype": "bf16",
-                "spec":"modellink.tasks.models.spec.deepseek_spec layer_spec"
+                "spec":"mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec"
             }
         }
     ],
@@ -93,7 +93,7 @@
                 "model-type-hf": "deepseek2-lite",
                 "params-dtype": "bf16",
                 "tokenizer-model":"/data/ci/deepseek2_lite/hf/deepseek2_lite_hf",
-                "spec":"modellink.tasks.models.spec.deepseek_spec layer_spec"
+                "spec":"mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec"
             }
         }
     ],
@@ -112,7 +112,7 @@
                 "use-mcore-models": null,
                 "model-type-hf": "deepseek2-lite",
                 "params-dtype": "bf16",
-                "spec":"modellink.tasks.models.spec.deepseek_spec layer_spec"
+                "spec":"mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec"
             }
         }
     ],

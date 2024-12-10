@@ -1,10 +1,10 @@
 import sys
 import os
 import math
-from modellink import megatron_adaptor
+from mindspeed_llm import megatron_adaptor
 
-from modellink.training.tokenizer import build_tokenizer
-from modellink.tasks.preprocess.data_handler import build_dataset, get_dataset_handler
+from mindspeed_llm.training.tokenizer import build_tokenizer
+from mindspeed_llm.tasks.preprocess.data_handler import build_dataset, get_dataset_handler
 from preprocess_data import get_args, build_splitter
 from tests.test_tools.utils import judge_expression
 
