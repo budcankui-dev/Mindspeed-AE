@@ -24,9 +24,9 @@ CKPT_SAVE_DIR="your model save ckpt path"
 CKPT_LOAD_DIR="your model ckpt path"
 
 TP=8
-PP=4
+PP=1
 EP=1
-CP=2
+CP=4
 CP_TYPE='megatron_cp_algo'
 NUM_LAYERS=32
 
@@ -36,7 +36,11 @@ MOE_ARGS="
     --moe-router-topk 2 \
     --moe-router-load-balancing-type aux_loss \
     --moe-aux-loss-coeff 0.02 \
-    --moe-permutation-async-comm
+    --moe-permutation-async-comm \
+    --moe-token-dispatcher-type alltoall \
+    --moe-grouped-gemm \
+    --use-fused-moe-token-permute-and-unpermute \
+    --use-cp-send-recv-overlap \
 "
 
 GPT_ARGS="
@@ -84,7 +88,7 @@ GPT_ARGS="
     --save ${CKPT_SAVE_DIR} \
 
     --micro-batch-size 1 \
-    --global-batch-size 128 \
+    --global-batch-size 32 \
     --lr 1e-5 \
     --train-iters 2000 \
     --lr-decay-iters 1280 \
@@ -96,7 +100,7 @@ GPT_ARGS="
     --bf16 \
     --no-load-optim \
     --no-load-rng \
-    --no-shared-storage  \
+    --no-shared-storage \
 "
 
 DATA_ARGS="

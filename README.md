@@ -89,6 +89,13 @@ MindSpeed-LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在�
       <td>4x8</td>
       <td><a href="./examples/mcore/llama2/pretrain_llama2_70b_pack_ptd.sh">53.9%</a></td>
     </tr>
+    <tr>
+      <td>Mixtral</td>
+      <td>Mixtral-8x7B</td>
+      <td>Atlas 900 A2 PODc</td>
+      <td>8x8</td>
+      <td><a href="./examples/mcore/mixtral/pretrain_mixtral_8x7b_ptd.sh">31%</a></td>
+    </tr>
   </tbody>
 </table>
 
