@@ -18,8 +18,15 @@ MindSpeed-LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在�
 ***<small>注 : 原包名 modellink 更改为 mindspeed_llm </small>***
 
 ---
+## 预置模型
+MindSpeed-LLM当前已支持和预置大模型列表：
 
-## MindSpeed-LLM 大模型训练框架功能特性概览
+- MindSpeed-LLM [100+ 预置大模型及其权重下载地址](./docs/models/pretrain.md)
+
+## 用户使用指南
+- MindSpeed-LLM [使用指南](./docs/USER_GUIDE.md)
+- [基于 Megatron-LM + MindSpeed-LLM 训练自定义大模型](./docs/DEVELOP_GUIDE.md) 
+## MindSpeed-LLM 大模型训练框架功能特性
 
 ### 训练方案
 
@@ -28,12 +35,6 @@ MindSpeed-LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在�
 * 分布式偏好对齐：偏好对齐方案/DPO/奖励模型
 * 开发工具链：权重转换/数据处理/分布式推理/分布式评估
 * 昇腾工具链：Profiling采集/确定性计算/高可用
-
-### 预置模型
-
-- MindSpeed-LLM [100+ 预置大模型及其权重下载地址](./docs/models/pretrain.md)
-- MindSpeed-LLM [使用指南](./docs/USER_GUIDE.md)
-- [基于 Megatron-LM + MindSpeed-LLM 训练自定义大模型](./docs/DEVELOP_GUIDE.md) 
 
 ### 研发中特性与模型
 
