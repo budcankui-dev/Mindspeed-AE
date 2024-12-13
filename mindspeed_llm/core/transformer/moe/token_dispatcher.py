@@ -73,11 +73,9 @@ class MoEAlltoAllTokenDispatcher(MoETokenDispatcher):
         num_local_tokens_per_expert = torch.histc(
             indices, bins=self.num_experts, min=0, max=self.num_experts
         )
-        # num_local_tokens_per_expert: [num_experts]
 
         ep_size = self.config.expert_model_parallel_size
         if self.drop_and_pad:
-            # probs: [num_experts, capacity]
             self.capacity = self.probs.size(1)
             num_tokens_per_local_expert = torch.full(
                 (self.num_local_experts,), self.capacity * self.ep_size, dtype=torch.long

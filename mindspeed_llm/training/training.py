@@ -20,8 +20,6 @@ import json
 from functools import wraps
 
 import time
-# The earliest we can measure the start time.
-_TRAIN_START_TIME = time.time()
 
 import torch
 import torch_npu
@@ -55,6 +53,9 @@ from megatron.core.distributed import DistributedDataParallel as DDP
 from megatron.core.distributed import finalize_model_grads
 from mindspeed_llm.training.initialize import set_jit_fusion_options
 from mindspeed_llm.tasks.finetune.lora.utils import is_enable_lora
+
+# The earliest we can measure the start time.
+_TRAIN_START_TIME = time.time()
 
 
 def model_provider_func_wrapper(model_provider_func):

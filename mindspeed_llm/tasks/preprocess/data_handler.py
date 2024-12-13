@@ -13,15 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+__all__ = ["get_dataset_handler", "build_dataset"]
+
 import os
 import sys
 import time
 import glob
 import json
 import logging
+from typing import Dict, List
+
 import torch
 import numpy as np
-from typing import Dict, List
 from datasets import load_dataset
 
 from megatron.core.datasets import indexed_dataset
@@ -32,8 +35,6 @@ from .utils import greedy_knapsack
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-__all__ = ["get_dataset_handler", "build_dataset"]
 
 
 class BaseDatasetHandler(object):
@@ -132,7 +133,6 @@ class BaseDatasetHandler(object):
                 if len(packed_data_dict[key]) != self.args.seq_length:
                     raise ValueError("The length of packed example should be identical to the seq_length.")
 
-                # logger.info(packed_data_dict[key])
                 sentence = torch.IntTensor(packed_data_dict[key])
                 builders[key].add_item(sentence)
                 builders[key].end_document()

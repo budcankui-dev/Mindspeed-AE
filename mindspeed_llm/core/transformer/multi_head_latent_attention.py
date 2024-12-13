@@ -142,7 +142,6 @@ class MultiHeadLatentAttention(SelfAttention):
         """
         Do patch for repeating KV so that GQA+Ulysses is better supported.
         """
-        # hidden_states: [sq, b, h]
 
         # For self attention we just duplicate the rotary_pos_emb if it isn't already
         if rotary_pos_emb is not None and not isinstance(rotary_pos_emb, tuple):

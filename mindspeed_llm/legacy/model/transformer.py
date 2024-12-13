@@ -545,16 +545,13 @@ def core_attention_forward(self, query_layer, key_layer, value_layer, attention_
     # Raw attention scores. [b, np, s, s]
     # ===================================
 
-    # [b, np, sq, sk]
     output_size = (query_layer.size(1),
                    query_layer.size(2),
                    query_layer.size(0),
                    key_layer.size(0))
 
-    # [sq, b, np, hn] -> [sq, b * np, hn]
     query_layer = query_layer.reshape(output_size[2],
                                       output_size[0] * output_size[1], -1)
-    # [sk, b, np, hn] -> [sk, b * np, hn]
     key_layer = key_layer.view(output_size[3],
                                output_size[0] * output_size[1], -1)
 
@@ -826,9 +823,7 @@ def parallel_transformer_forward(
         retriever_attn_mask=None,
         inference_params=None,
         rotary_pos_emb=None):
-    # hidden_states: [s, b, h]
 
-    # Checks.
     if inference_params:
         assert self.recompute_granularity is None, \
             'inference does not work with activation checkpointing'
@@ -966,7 +961,6 @@ def parallel_mlp_forward_wrapper(fn):
                                                                                   False,
                                                                                   intermediate_parallel,
                                                                                   bias_parallel)
-            # [s, b, h]
             output, output_bias = self.dense_4h_to_h(intermediate_parallel)
             self.activation_checkpoint_manager.discard_output()
 

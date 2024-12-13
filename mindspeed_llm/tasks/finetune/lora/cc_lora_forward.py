@@ -56,13 +56,15 @@ class _FusedColumnSeqParallelLoRAFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, input_, weight, weight_a, weight_b, scaling):
-        # 1. gx = gather(x)
-        #       a_scale = a * scaling
-        #       ax = a_scale * x
-        # 2. gax = gather(ax)
-        #       output = w * gx
-        # 3. bx = b * gax
-        # 4. output += bx
+        """
+        1. gx = gather(x)
+            a_scale = a * scaling
+            ax = a_scale * x
+        2. gax = gather(ax)
+            utput = w * gx
+        3. bx = b * gax
+        4. output += bx
+        """
         total_input, handle = _gather_along_first_dim_async(input_)
         weight_a_scale = weight_a * scaling
         ax = torch.matmul(input_, weight_a_scale.t())
@@ -108,14 +110,15 @@ class _FusedRowSeqParallelLoRAFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, input_, weight, weight_a, weight_b, scaling):
-        # 1. a_scale = a * scaling
-        # 2. ax = a_scale * x
-        # 3. rax = reduce_scatter(ax)
-        #       output = w * x
-        # 4. output = reduce_scatter(output)
-        #       bx = b * rax
-        # 5. output += bx
-
+        """
+        1. a_scale = a * scaling
+        2. ax = a_scale * x
+        3. rax = reduce_scatter(ax)
+              output = w * x
+        4. output = reduce_scatter(output)
+              bx = b * rax
+        5. output += bx
+        """
         weight_a_scale = weight_a * scaling
         ax = torch.matmul(input_, weight_a_scale.t())
         rax, handle = _reduce_scatter_along_first_dim_async(ax)
@@ -146,13 +149,6 @@ class _FusedRowSeqParallelLoRAFunction(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_output):
-        # grad_weight_b = grad_out * scaling * reduce_scatter(a * x)
-        #               = grad_out * (scaling * reduce_scatter(a * x))
-        #               = grad_out * input_b
-        # grad_weight_a = gather(grad_out * scaling * b) * x
-        #               = gather(grad_out) * b * x * scaling
-        # grad_input = gather(grad_out) * w
-
         input_, input_b, weight, weight_b = ctx.saved_tensors
         is_dense = len(grad_output.shape) == 3
         if is_dense:
@@ -179,14 +175,16 @@ class _FusedRowNoSeqParallelLoRAFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, input_, weight, weight_a, weight_b, scaling):
-        # 1. a_scale = a * scaling
-        # 2. ax = a_scale * x
-        # 3. rax = _reduce_async(ax)
-        #       output = w * x
-        # 4. output = _reduce_async(output)
-        #       bx = b * rax
-        # 5. output += bx
-        # reduce_from_tensor_model_parallel_region
+        """
+        1. a_scale = a * scaling
+        2. ax = a_scale * x
+        3. rax = _reduce_async(ax)
+            output = w * x
+        4. output = _reduce_async(output)
+            bx = b * rax
+        5. output += bx
+        reduce_from_tensor_model_parallel_region
+        """
         weight_a_scale = weight_a * scaling
         ax = torch.matmul(input_, weight_a_scale.t())
         rax, handle = _reduce_async(ax)

@@ -32,14 +32,15 @@ except ImportError:
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                              os.path.pardir)))
 
-from mindspeed_llm.training.tokenizer import build_tokenizer
-from mindspeed_llm.tasks.preprocess.data_handler import build_dataset, get_dataset_handler
 from megatron.core.datasets.indexed_dataset import (
     IndexedDatasetBuilder,
     IndexedDataset,
     get_bin_path,
     get_idx_path,
 )
+
+from mindspeed_llm.training.tokenizer import build_tokenizer
+from mindspeed_llm.tasks.preprocess.data_handler import build_dataset, get_dataset_handler
 
 
 logging.basicConfig(level=logging.INFO)

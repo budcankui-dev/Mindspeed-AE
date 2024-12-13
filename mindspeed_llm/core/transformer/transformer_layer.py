@@ -90,7 +90,6 @@ def transformer_layer_forward(self, hidden_states, attention_mask, context=None,
                               inference_params=None,
                               packed_seq_params=None):
 
-    # hidden_states: [s, b, h]
     args = get_args()
     if self.interleave_sliding_window is not None and self.is_sliding and attention_mask is not None:
         min_dtype = torch.finfo(hidden_states.dtype).min

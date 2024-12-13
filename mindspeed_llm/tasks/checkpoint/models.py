@@ -915,8 +915,6 @@ class MegatronModel(ModelBase):
             'position_embedding_type': None, 'tokenizer_type': None, 'iteration': 1, 'bert_binary_head': None,
             'disable_bias_linear': False, 'params_dtype': None, 'swiglu': False
         }
-        # if hasattr(self.args, 'add_bias_linear'):
-        #     check_args_list['disable_bias_linear'] = self.args.add_bias_linear
 
         def check_for_arg(arg_name, default=None):
             if getattr(self.args, arg_name, None) is None:

@@ -74,7 +74,6 @@ def group_limited_greedy_topKgating(self, logits: torch.Tensor):
     #########################################################
     if self.config.moe_aux_loss_coeff > 0:
         l_expert_aux = 0
-        # aux_topk = self.top_k
         # always compute aux loss based on the naive greedy topk method
         if args.seq_aux:
             scores_for_seq_aux = scores_for_aux.view(args.micro_batch_size, seq_length, -1)
@@ -113,7 +112,6 @@ def group_limited_greedy_topKgating(self, logits: torch.Tensor):
         if args.seq_aux:
             if fi is None:
                 scores_for_seq_aux = scores_for_aux.view(args.micro_batch_size, seq_length, -1)
-                # [b, s, n_global_experts]
 
                 ce = torch.zeros(
                     args.micro_batch_size, args.num_experts, device=logits.device
@@ -255,8 +253,6 @@ def topk_router_routing(self, logits: torch.Tensor):
         scores, indices = group_limited_greedy_topKgating(self, logits)
     elif self.routing_type == "none":
         # A naive top-k routing without load balancing
-        # top_logits, indices = torch.topk(logits, k=self.topk, dim=1)
-        # scores = torch.softmax(top_logits, dim=-1, dtype=torch.float32).type_as(logits)
         scores, indices, _ = topk_softmax_with_capacity(
             logits,
             self.topk,

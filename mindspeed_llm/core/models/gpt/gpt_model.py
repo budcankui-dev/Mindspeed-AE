@@ -12,9 +12,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from functools import wraps
+
 import torch
 from torch import Tensor
-from functools import wraps
 
 from megatron.core import InferenceParams
 from megatron.core.packed_seq_params import PackedSeqParams

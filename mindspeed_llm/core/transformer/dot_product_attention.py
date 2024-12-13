@@ -180,7 +180,6 @@ def dot_product_attention_forward_wrapper(fn):
             return flash_attention_forward(self, query, key, value, attention_mask, attn_mask_type,
                                            packed_seq_params)
 
-        # [b, np, sq, sk]
         output_size = (
             query.size(1),
             query.size(2),
@@ -270,7 +269,6 @@ def dot_product_attention_forward_wrapper(fn):
         # change view [b * np, sq, sk]
         attention_probs = attention_probs.view(output_size[0] * output_size[1], output_size[2], -1)
 
-        # matmul: [b * np, sq, hn]
         context = torch.bmm(attention_probs, value.transpose(0, 1))
 
         # change view [b, np, sq, hn]

@@ -340,7 +340,6 @@ def beam_search_and_return_on_first_stage(
                 tokens[:, context_length] = tokens.new([item[0] for item in next_beams])
                 scores = scores.new([item[1] for item in next_beams]).unsqueeze(1)
           
-            # torch.distributed.barrier()
             done = broadcast_from_last_pipeline_stage(1, torch.uint8, done)
             if done:
                 break

@@ -18,7 +18,6 @@ from megatron.core.datasets.gpt_dataset import GPTDatasetConfig
 from megatron.core.datasets.gpt_dataset import MockGPTDataset, GPTDataset
 import megatron.legacy.model
 from megatron.core.models.gpt import GPTModel
-from mindspeed_llm.training import pretrain
 from megatron.core.transformer.spec_utils import import_module
 from megatron.training.utils import (
     get_batch_on_this_cp_rank,
@@ -31,6 +30,8 @@ from megatron.core.models.gpt.gpt_layer_specs import (
     get_gpt_layer_local_spec,
     get_gpt_layer_with_transformer_engine_spec,
 )
+
+from mindspeed_llm.training import pretrain
 from mindspeed_llm.training.utils import generate_actual_seq_len
 
 

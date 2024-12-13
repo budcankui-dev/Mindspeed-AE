@@ -200,10 +200,6 @@ def unpermute(
     unpermuted_tokens.index_copy_(0, sorted_indices, permuted_tokens)
     unpermuted_tokens = unpermuted_tokens.reshape(-1, topk, permuted_tokens.size(-1))
 
-    # Mindspeed半成品
-    # sorted_indices = torch.argsort(sorted_indices.float()).int()
-    # unpermuted_tokens = permuted_tokens.index_select(0, sorted_indices)
-    # unpermuted_tokens = unpermuted_tokens.reshape(-1, topk, permuted_tokens.size(-1))
     if probs is not None:
         unpermuted_tokens = unpermuted_tokens * probs.unsqueeze(-1)
     unpermuted_tokens = unpermuted_tokens.sum(dim=1)

@@ -13,16 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import torch
-
 from functools import wraps
 from typing import Optional
 
+import torch
+
 from megatron.training import get_args
-from megatron.core.tensor_parallel import copy_to_tensor_model_parallel_region, gather_from_tensor_model_parallel_region
-from megatron.core.tensor_parallel.layers import linear_with_frozen_weight, linear_with_grad_accumulation_and_async_allreduce, ColumnParallelLinear
+from megatron.core.tensor_parallel import (
+    copy_to_tensor_model_parallel_region,
+    gather_from_tensor_model_parallel_region
+)
+from megatron.core.tensor_parallel.layers import (
+    linear_with_frozen_weight,
+    linear_with_grad_accumulation_and_async_allreduce,
+    ColumnParallelLinear
+)
 from megatron.legacy.model.fused_layer_norm import MixedFusedLayerNorm
 from megatron.core import parallel_state
+
 from mindspeed.utils import get_actual_seq_len, set_actual_seq_len
 
 
