@@ -11,42 +11,42 @@
 - [MindSpeed-LLM 使用指南](#mindspeed-llm-使用指南)
   - [目录](#目录)
   - [前期准备](#前期准备)
-      - [ 1. 仓库拉取](#-1-仓库拉取)
-      - [ 2. 环境搭建](#-2-环境搭建)
-  - [ 权重下载及转换](#-权重下载及转换)
-      - [ 1. 权重下载](#-1-权重下载)
-      - [ 2. 权重转换](#-2-权重转换)
+      - [ 1. 仓库拉取](#1-仓库拉取)
+      - [ 2. 环境搭建](#2-环境搭建)
+  - [ 权重下载及转换](#权重下载及转换)
+      - [ 1. 权重下载](#1-权重下载)
+      - [ 2. 权重转换](#2-权重转换)
         - [2.1 Huggingface权重转换到Megatron-LM格式](#21-huggingface权重转换到megatron-lm格式)
         - [2.2 Megatron-LM权重转换到Huggingface格式](#22-megatron-lm权重转换到huggingface格式)
         - [2.3 Megatron-LM格式权重互转](#23-megatron-lm格式权重互转)
         - [2.4 lora权重与base权重合并](#24-lora权重与base权重合并)
-  - [ 数据集准备及处理](#-数据集准备及处理)
-      - [ 1. 数据集下载](#-1-数据集下载)
-      - [ 2. 数据集处理](#-2-数据集处理)
+  - [ 数据集准备及处理](#数据集准备及处理)
+      - [ 1. 数据集下载](#1-数据集下载)
+      - [ 2. 数据集处理](#2-数据集处理)
         - [2.1 预训练数据集处理方法](#21-预训练数据集处理方法)
         - [2.2 微调数据集处理方法](#22-微调数据集处理方法)
           - [2.2.1 Alpaca风格数据集处理方法](#221-alpaca风格数据集处理方法)
           - [2.2.2 Sharegpt风格数据集处理方法](#222-sharegpt风格数据集处理方法)
         - [2.3 RLHF任务数据集处理](#23-rlhf任务数据集处理)
           - [2.3.1 Pairwise数据集处理](#231-pairwise数据集处理)
-      - [ 3. 数据集合并](#-3-数据集合并)
-  - [ 大模型分布式预训练](#-大模型分布式预训练)
-      - [ 1. 准备工作](#-1-准备工作)
-      - [ 2. 配置预训练参数](#-2-配置预训练参数)
-      - [ 3. 启动预训练](#-3-启动预训练)
-  - [ 大模型分布式指令微调](#-大模型分布式指令微调)
-      - [ 1. 准备工作](#-1-准备工作-1)
-      - [ 2. 配置微调参数](#-2-配置微调参数)
-      - [ 3. 启动全参微调](#-3-启动全参微调)
-      - [ 4. 启动低参微调](#-4-启动低参微调)
-  - [ 大模型分布式推理](#-大模型分布式推理)
-      - [ 1. Generate：流式推理](#-1-generate流式推理)
-      - [ 2. Chat：指令微调后chat对话](#-2-chat指令微调后chat对话)
-      - [ 3. Lora推理](#-3-lora推理)
+      - [ 3. 数据集合并](#3-数据集合并)
+  - [ 大模型分布式预训练](#大模型分布式预训练)
+      - [ 1. 预训练准备工作](#1-预训练准备工作)
+      - [ 2. 配置预训练参数](#2-配置预训练参数)
+      - [ 3. 启动预训练](#3-启动预训练)
+  - [ 大模型分布式指令微调](#大模型分布式指令微调)
+      - [ 1. 指令微调准备工作](#1-指令微调准备工作)
+      - [ 2. 配置微调参数](#2-配置微调参数)
+      - [ 3. 启动全参微调](#3-启动全参微调)
+      - [ 4. 启动低参微调](#4-启动低参微调)
+  - [ 大模型分布式推理](#大模型分布式推理)
+      - [ 1. Generate：流式推理](#1-generate流式推理)
+      - [ 2. Chat：指令微调后chat对话](#2-chat指令微调后chat对话)
+      - [ 3. Lora推理](#3-lora推理)
   - [大模型分布式评估](#大模型分布式评估)
-      - [ 1. 基准评估](#-1-基准评估)
-      - [ 2. 指令微调评估](#-2-指令微调评估)
-      - [  3. LoRA权重评估](#--3-lora权重评估)
+      - [ 1. 基准评估](#1-基准评估)
+      - [ 2. 指令微调评估](#2-指令微调评估)
+      - [  3. LoRA权重评估](#3-lora权重评估)
 
 ---
 
@@ -54,7 +54,7 @@
 
 环境安装版本请参见[主页信息](../README.md/#mindspeed-llm版本配套环境与维护策略)
 
-#### <span id="jump1.1"> 1. 仓库拉取
+#### 1. 仓库拉取
 
 ```shell
 git clone https://gitee.com/ascend/MindSpeed-LLM.git 
@@ -70,7 +70,7 @@ mkdir model_from_hf
 mkdir dataset
 mkdir ckpt
 ```
-#### <span id="jump1.2"> 2. 环境搭建
+#### 2. 环境搭建
 
 ```bash
 # python3.8
@@ -110,9 +110,9 @@ pip install -r requirements.txt
 
 ---
 
-## <span id="jump2"> 权重下载及转换
+## 权重下载及转换
 
-#### <span id="jump2.1"> 1. 权重下载
+#### 1. 权重下载
 
 从Huggingface等网站下载开源模型权重
 
@@ -139,7 +139,7 @@ wget https://huggingface.co/daryl149/llama-2-7b-hf/resolve/main/tokenizer_config
 cd ../../
 ```
 
-#### <span id="jump2.2"> 2. 权重转换
+#### 2. 权重转换
 
 在`example`目录下每个模型都已经预置好权重转换脚本，可以根据需要来进行修改
 ##### 2.1 Huggingface权重转换到Megatron-LM格式
@@ -183,7 +183,7 @@ python convert_ckpt.py \
 
 【--model-type-hf】
 
-huggingface模型类别，默认为llama2，目前支持的模型见 [model_cfg.json](https://gitee.com/ascend/MindSpeed-LLM/blob/master/mindspeed_llm/tasks/checkpoint/model_cfg.json)
+huggingface模型类别，默认为llama2，目前支持的模型见 [model_cfg.json](https://gitee.com/ascend/MindSpeed-LLM/blob/1.0.0/mindspeed_llm/tasks/checkpoint/model_cfg.json)
 
 【--tokenizer-model】
 
@@ -333,6 +333,10 @@ mcore转legacy时设置此参数以指定保存权重格式为legacy
 
 `--lora-target-modules`定义了Lora目标模块，字符串列表，由空格隔开，无默认值。每一个字符串是需要进行LoRA微调的层的名称。
 
+【--lora-load】
+
+加载lora权重断点续训使用这个参数，加载CKPT_SAVE_DIR这个路径下的lora权重。 推理时该参数需要配合`--load`同时使用。
+
 【合并后转换为Megatron-Legacy权重】
 
 ```shell
@@ -387,9 +391,9 @@ bash examples/legacy/llama2/ckpt_convert_llama2_legacy2hf_lora.sh
 
 ---
 
-## <span id="jump3"> 数据集准备及处理
+## 数据集准备及处理
 
-#### <span id="jump3.1"> 1. 数据集下载
+#### 1. 数据集下载
 
 从Huggingface等网站下载开源数据集，保存到MindSpeed-LLM/dataset/ 目录
 
@@ -413,8 +417,9 @@ wget https://huggingface.co/datasets/lsb/enwiki20230101/resolve/main/data/train-
 cd ..
 ```
 
-#### <span id="jump3.2"> 2. 数据集处理
+#### 2. 数据集处理
 在`example`目录下每个模型都已经预置好数据预处理脚本，可以根据需要来进行修改
+
 ##### 2.1 预训练数据集处理方法
 
 ```shell
@@ -707,7 +712,7 @@ bash examples/legacy/llama2/data_convert_llama2_instruction.sh
 见：[Pairwise](./features/pairwise_dataset.md)数据集预处理说明。
 
 
-#### <span id="jump3.3"> 3. 数据集合并
+#### 3. 数据集合并
 
 若要对预处理好的多个数据集进行合并，须将待合并数据集放在一个单独文件夹里面，然后按如下调用命令：
 
@@ -748,12 +753,12 @@ data1_xxx_text_document.idx, data1_xxx_text_document.bin, data2_xxx_text_documen
 ---
 
 
-## <span id="jump4"> 大模型分布式预训练
+## 大模型分布式预训练
 
-#### <span id="jump4.1"> 1. 准备工作
+#### 1. 预训练准备工作
 配置脚本前需要完成前置准备工作，包括：**环境安装**、**数据集准备及处理**、**Huggingface权重转换**，详情可查看对应章节
 
-#### <span id="jump4.2"> 2. 配置预训练参数
+#### 2. 配置预训练参数
 
 legacy分支的预训练脚本保存在 example 中各模型文件夹下：pretrain_xxx_xx.sh
 
@@ -826,7 +831,7 @@ WORLD_SIZE=$(($GPUS_PER_NODE * $NNODES))
 ```
 
 
-#### <span id="jump4.3"> 3. 启动预训练
+#### 3. 启动预训练
 
 【legacy分支】 
 ```shell
@@ -853,12 +858,12 @@ bash examples/mcore/llama2/pretrain_llama2_7b_ptd.sh
 ---
 
 
-## <span id="jump5"> 大模型分布式指令微调
+## 大模型分布式指令微调
 
-#### <span id="jump5.1"> 1. 准备工作
+#### 1. 指令微调准备工作
 配置脚本前需要完成前置准备工作，包括：**环境安装**、**数据集准备及处理**、**Huggingface权重转换**，详情可查看对应章节
 
-#### <span id="jump5.2"> 2. 配置微调参数
+#### 2. 配置微调参数
 
 legacy分支的全参微调脚本保存在 examples/legacy 中各模型文件夹下：tune_xxx_xx_full_ptd.sh
 
@@ -983,7 +988,7 @@ WORLD_SIZE=$(($GPUS_PER_NODE * $NNODES))
 ```
 
 
-#### <span id="jump5.3"> 3. 启动全参微调
+#### 3. 启动全参微调
 
 【legacy分支】 
 ```shell
@@ -1004,7 +1009,7 @@ bash examples/mcore/模型文件夹/tune_xxx_xxx_full_ptd.sh
 bash examples/mcore/llama2/tune_llama2_7b_full_ptd.sh
 ```
 
-#### <span id="jump5.4"> 4. 启动低参微调
+#### 4. 启动低参微调
 
 【legacy分支】 
 ```shell
@@ -1030,9 +1035,9 @@ bash examples/mcore/llama2/tune_llama2_7b_full_ptd.sh
 
 ---
 
-## <span id="jump6"> 大模型分布式推理
+## 大模型分布式推理
 
-#### <span id="jump6.1"> 1. Generate：流式推理
+#### 1. Generate：流式推理
 
 MindSpeed-LLM 流式推理脚本命名风格及启动方法为：
 ```shell
@@ -1053,7 +1058,7 @@ TOKENIZER_PATH="./model_from_hf/llama-2-hf/"
 # 启动任务（以 legacy 为例）
 bash examples/legacy/llama2/generate_llama2_7b_ptd.sh
 ```
-#### <span id="jump6.2"> 2. Chat：指令微调后chat对话
+#### 2. Chat：指令微调后chat对话
 
 MindSpeed-LLM 指令微调后chat对话脚本命名风格及启动方法为：
 ```shell
@@ -1087,7 +1092,7 @@ bash examples/legacy/llama2/chat_llama2_7b_ptd.sh
 
 模型对话模板，作用与`--hf-chat-template`一致，但不需要模型的tokenizer已经具备`chat_template`属性，微调后推理对话时应选择模型对应的对话模板
 
-#### <span id="jump6.3"> 3. Lora推理
+#### 3. Lora推理
 MindSpeed-LLM 流式推理脚本命名风格及启动方法为：
 ```shell
 # Legacy
@@ -1111,14 +1116,14 @@ bash examples/mcore/llama2/generate_llama2_7b_lora_ptd.sh
 
 ---
 
-## <span id="jump7">大模型分布式评估
+## 大模型分布式评估
 
-#### <span id="jump7.1"> 1. 基准评估
+#### 1. 基准评估
 MindSpeed-LLM 基准评估脚本命名风格及启动方法为：
 ```shell
 # Legacy
 # 命名及启动：examples/legacy/model_name/evaluate_xxx.sh
-bash examples/legacy/llama2/evaluate_llama2_7b_ptd.sh
+bash examples/legacy/llama2/evaluate_llama2_7B_ptd.sh
 
 # Mcore
 # 命名及启动：examples/mcore/model_name/evaluate_xxx.sh
@@ -1138,7 +1143,7 @@ DATA_PATH="./mmlu/data/test/"
 TASK="mmlu"  # 支持 mmlu、ceval、agieval、bbh、boolq、human_eval
 
 # 启动评估脚本（以 legacy 为例）
-bash examples/legacy/llama2/evaluate_llama2_7B_mmlu_ptd.sh
+bash examples/legacy/llama2/evaluate_llama2_7B_ptd.sh
 ```
 
 【--max-new-tokens】
@@ -1151,12 +1156,12 @@ bash examples/legacy/llama2/evaluate_llama2_7B_mmlu_ptd.sh
 可以设置多batch推理，提升模型评估性能
 
 
-#### <span id="jump7.2"> 2. 指令微调评估
+#### 2. 指令微调评估
 
 使用指令微调后权重的评估脚本命名风格及启动方法为（以 legacy 为例）：
 
 ```shell
-bash examples/legacy/llama2/evaluate_llama2_7B_full_mmlu_ptd.sh
+bash examples/legacy/llama2/evaluate_llama2_7b_full_ptd.sh
 ```
 
 【--prompt-type】
@@ -1171,12 +1176,12 @@ bash examples/legacy/llama2/evaluate_llama2_7B_full_mmlu_ptd.sh
 
 根据评估数据集语言来确定，默认为`en`，如果评估数据集为中文数据集，则应设置为`zh`
 
-#### <span id="jump7.3">  3. LoRA权重评估
+#### 3. LoRA权重评估
 
 使用lora权重的评估脚本命名风格及启动方法为（以 legacy 为例）：
 
 ```shell
-bash examples/legacy/llama2/evaluate_llama2_7B_lora_mmlu_ptd.sh
+bash examples/legacy/llama2/evaluate_llama2_7B_lora_ptd.sh
 ```
 
 使用过程中一些常见问题可参见[社区bug列表](./models/pretrain.md/#社区bug列表).

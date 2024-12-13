@@ -232,7 +232,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
   </tr>
   <tr>
     <td rowspan="4">通信掩盖</td>
-    <td><a href="https://gitee.com/ascend/MindSpeed/blob/master/docs/features/async-ddp-param-gather.md">梯度reduce通算掩盖</a></td>
+    <td><a href="https://gitee.com/ascend/MindSpeed/blob/master/docs/features/async-ddp.md">梯度reduce通算掩盖</a></td>
     <td>✅</td>
     <td>✅</td>
     <td>【昇腾】</td>
@@ -395,13 +395,13 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td>【NAIE】</td>
   </tr>
     <tr>
-    <td>多轮对话</td>
+    <td><a href="./docs/features/multi-turn_conversation.md">多轮对话</td>
     <td>✅</td>
     <td>✅</td>
     <td>【昇腾】</td>
   </tr>
   <tr>
-    <td>长序列方案</td>
+    <td><a href="fine-tuning-with-context-parallel.md">长序列方案</td>
     <td>✅</td>
     <td>✅</td>
     <td>【NAIE】</td>
@@ -511,13 +511,13 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     </tr>
     <tr>
       <td rowspan="2">分布式推理</td>
-      <td>流式推理</td>
+      <td><a href="./docs/features/inference.md">流式推理</td>
       <td>✅</td>
       <td>✅</td>
       <td>【NAIE】</td>
     </tr>
     <tr>
-      <td>微调后 Chat 对话</td>
+      <td><a href="./docs/features/chat.md">微调后 Chat 对话</td>
       <td>✅</th>
       <td>✅</th>
       <td>【NAIE】</td>

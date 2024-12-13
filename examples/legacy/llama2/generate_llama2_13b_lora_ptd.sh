@@ -60,5 +60,5 @@ python -m torch.distributed.launch $DISTRIBUTED_ARGS inference.py \
        --lora-alpha 16 \
        --lora-fusion \
        --make-vocab-size-divisible-by 1 \
-       --prompt-type 'alpaca' \
+       --prompt-type 'llama2' \
        | tee logs/generate_llama2_13b_lora.log
