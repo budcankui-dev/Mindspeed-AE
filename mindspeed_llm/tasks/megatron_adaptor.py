@@ -62,7 +62,7 @@ class MegatronAdaptation:
         if cls._args is not None:
             return cls._args
 
-        from mindspeed_llm.training.arguments import process_args
+        from ..training.arguments import process_args
         parser = argparse.ArgumentParser(description='MindSpeed-LLM Arguments', allow_abbrev=False)
         _args, _ = process_args(parser).parse_known_args()
         return _args
@@ -404,11 +404,11 @@ class CoreAdaptation(MegatronAdaptationABC):
                                     finalize_wrapper)
 
     def patch_utils(self):
-        from mindspeed_llm.training.utils import unwrap_model_wrapper
+        from ..training.utils import unwrap_model_wrapper
         MegatronAdaptation.register('megatron.training.checkpointing.unwrap_model', unwrap_model_wrapper)
         MegatronAdaptation.register('megatron.training.training.unwrap_model', unwrap_model_wrapper)
 
-        from mindspeed_llm.training.utils import generate_adaptive_cp_mask_list_by_user, generate_adaptive_cp_grid_mask_by_user
+        from ..training.utils import generate_adaptive_cp_mask_list_by_user, generate_adaptive_cp_grid_mask_by_user
         MegatronAdaptation.register('mindspeed.core.context_parallel.utils.generate_adaptive_cp_mask_list_by_user',
                                 generate_adaptive_cp_mask_list_by_user)
         MegatronAdaptation.register('mindspeed.core.context_parallel.utils.generate_adaptive_cp_grid_mask_by_user',
@@ -432,7 +432,7 @@ class LegacyAdaptation(MegatronAdaptationABC):
 
     def patch_log_handler(self):
         from megatron.training.log_handler import CustomHandler
-        from mindspeed_llm.training.utils import emit
+        from ..training.utils import emit
         CustomHandler.emit = emit
 
     def patch_high_availability_feature(self):
@@ -593,9 +593,9 @@ class LegacyAdaptation(MegatronAdaptationABC):
         MegatronAdaptation.register('megatron.inference.text_generation.forward_step._with_pipelining_forward_step', _with_pipelining_forward_step)
 
     def patch_miscellaneous(self):
-        from mindspeed_llm.training.utils import print_args_wrapper
-        from mindspeed_llm.training.arguments import validate_args_decorator
-        from mindspeed_llm.training.arguments import core_transformer_config_from_args_wrapper
+        from ..training.utils import print_args_wrapper
+        from ..training.arguments import validate_args_decorator
+        from ..training.arguments import core_transformer_config_from_args_wrapper
         from ..training.checkpointing import _load_base_checkpoint_wrapper
         from ..training.tokenizer import build_tokenizer
         from ..training.arguments import parse_args_decorator

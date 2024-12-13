@@ -327,37 +327,37 @@ def main():
     rank = dist.get_rank()
     if 'mmlu' in args.task:
         a = time.time()
-        mmlu(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = mmlu(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'MMLU Running Time:, {time.time() - a}')
     if 'gsm8k' in args.task:
         a = time.time()
-        gsm8k(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = gsm8k(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'GSM8k Running Time: {time.time() - a}')
     if 'boolq' in args.task:
         a = time.time()
-        boolq(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = boolq(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'Boolq Running Time: {time.time() - a}')
     if 'ceval' in args.task:
         a = time.time()
-        ceval(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = ceval(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'Ceval Running Time: {time.time() - a}')
     if 'bbh' in args.task:
         a = time.time()
-        bbh_eval(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = bbh_eval(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'bbh Running Time: {time.time() - a}')
     if 'agieval' in args.task:
         a = time.time()
-        agi_eval(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = agi_eval(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'agi_eval Running Time: {time.time() - a}')
     if 'human_eval' in args.task:
         a = time.time()
-        human_eval(args, LLMChat(args, model, tokenizer))
+        _answer, _score_df = human_eval(args, LLMChat(args, model, tokenizer))
         if rank == 0:
             logger.info(f'Human_eval Running Time: {time.time() - a}')
 

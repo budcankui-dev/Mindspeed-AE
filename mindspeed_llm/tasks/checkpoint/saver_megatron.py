@@ -182,7 +182,7 @@ def save_huggingface_qwen(args, model, model_args):
         if name_param_m[0] == f"language_model.encoder.layers.{layer_num}.post_attention_norm.weight":
             hf2mg_map[f"transformer.h.{layer_num}.ln_2.weight"] = name_param_m[1]
             continue
-        if  name_param_m[0] == f"language_model.encoder.layers.{layer_num}.self_attention.query_key_value.weight":
+        if name_param_m[0] == f"language_model.encoder.layers.{layer_num}.self_attention.query_key_value.weight":
             qkv_weight = name_param_m[1].reshape(
                 ng,
                 repeats + 2,
@@ -196,7 +196,7 @@ def save_huggingface_qwen(args, model, model_args):
             qkv = torch.cat((qw, kw, vw), dim=0)
             hf2mg_map[f"transformer.h.{layer_num}.attn.c_attn.weight"] = qkv
             continue
-        if  name_param_m[0] == f"language_model.encoder.layers.{layer_num}.self_attention.query_key_value.bias":
+        if name_param_m[0] == f"language_model.encoder.layers.{layer_num}.self_attention.query_key_value.bias":
             bias_weight = name_param_m[1].reshape(
                 ng, repeats + 2, name_param_m[1].shape[0] // ng // (repeats + 2)
             )

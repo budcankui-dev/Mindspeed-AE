@@ -287,4 +287,4 @@ def task_chat(args, model):
             stream=True
         )
 
-        chat_print_and_update_histories(args, responses, histories_no_template, histories_template, prompt)
+        _output = chat_print_and_update_histories(args, responses, histories_no_template, histories_template, prompt)

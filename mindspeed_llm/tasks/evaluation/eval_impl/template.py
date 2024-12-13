@@ -58,7 +58,7 @@ class EvalTemplate:
             messages.append({"role": Role.USER.value, "content": prompt})
             messages.append({"role": Role.ASSISTANT.value, "content": response})
 
-        prompt, response = self._parse_example(target_data)
+        prompt, _response = self._parse_example(target_data)
         messages.append({"role": Role.USER.value, "content": prompt})
         messages[0]["content"] = self.system.format(subject=subject_name) + messages[0]["content"]
         return messages
