@@ -53,7 +53,7 @@ class EvalTemplate:
         Converts dataset examples to messages.
         """
         messages = []
-        for idx, row in support_set.iterrows():
+        for _, row in support_set.iterrows():
             prompt, response = self._parse_example(row)
             messages.append({"role": Role.USER.value, "content": prompt})
             messages.append({"role": Role.ASSISTANT.value, "content": response})

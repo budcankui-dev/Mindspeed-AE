@@ -309,9 +309,14 @@ def convert_sharegpt_to_intermediate(
             logger.warning("Invalid role tag in {}.".format(messages))
             broken_data = True
 
-        aligned_messages.append(
-            {"role": tag_mapping[message[dataset_attr.role_tag]], "content": message[dataset_attr.content_tag]}
-        )
+        content_value = message.get(dataset_attr.content_tag)
+
+        if content_value is not None:
+            aligned_messages.append(
+                {"role": tag_mapping.get(message.get(dataset_attr.role_tag), "unknown"), "content": content_value}
+            )
+        else:
+            logger.warning(f"Missing content tag in message at turn {turn_idx}: {message}")
 
     if (not dataset_attr.ranking and len(aligned_messages) % 2 != 0) or (
         dataset_attr.ranking and len(aligned_messages) % 2 == 0

@@ -122,7 +122,7 @@ class HumanEval(DatasetEval):
         if self.rank == 0:
             self.task_pbar = tqdm.tqdm(total=len(problems), leave=False)
 
-        for idx, (task_id, task) in enumerate(problems.items()):
+        for _, (task_id, task) in enumerate(problems.items()):
             instruction = self.instruction_template.format(prompt=task['prompt'])
             chat_result, rank = chat.beam_search_chat(instruction=instruction, history=[])
             answer = None

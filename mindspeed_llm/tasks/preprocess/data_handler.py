@@ -92,7 +92,7 @@ class BaseDatasetHandler(object):
         lengths = []
         from collections import defaultdict
         length2indexes = defaultdict(list)
-        for i, doc in enumerate(iter(self.tokenized_dataset), start=1):
+        for _, doc in enumerate(iter(self.tokenized_dataset), start=1):
             batch = doc["input_ids"]
             for sample in batch:
                 length = len(sample)
@@ -113,7 +113,7 @@ class BaseDatasetHandler(object):
         for k, knapsack in enumerate(knapsacks):
             packed_data_dict = {key: [] for key in self.args.json_keys}
 
-            for i, length in enumerate(knapsack):
+            for _, length in enumerate(knapsack):
                 index = length2indexes[length].pop()
                 for key in self.args.json_keys:
                     packed_data_dict[key] += key_data_dict[key][index]

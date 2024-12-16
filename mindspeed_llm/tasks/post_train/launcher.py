@@ -1,9 +1,13 @@
 # Copyright (c) 2024, HUAWEI CORPORATION.  All rights reserved.
+import logging
+
 from megatron.training import get_args
 from megatron.training.initialize import initialize_megatron
 from mindspeed_llm.tasks.post_train.sft import SFTTrainer
 from mindspeed_llm.tasks.post_train.dpo import DPOTrainer
 from mindspeed_llm.tasks.post_train.rm import RMTrainer
+
+logger = logging.getLogger(__name__)
 
 
 def get_trainer(stage):
@@ -19,6 +23,9 @@ def get_trainer(stage):
         return DPOTrainer()
     elif stage == "rm":
         return RMTrainer()
+    else:
+        logger.info(f'Unknown Stage: {stage}')
+        return None
 
 
 class AutoTrainer:
