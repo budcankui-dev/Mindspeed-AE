@@ -401,7 +401,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td>【昇腾】</td>
   </tr>
   <tr>
-    <td><a href="fine-tuning-with-context-parallel.md">长序列方案</td>
+    <td><a href="./docs/features/fine-tuning-with-context-parallel.md">长序列方案</td>
     <td>✅</td>
     <td>✅</td>
     <td>【NAIE】</td>
