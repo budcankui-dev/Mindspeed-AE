@@ -201,7 +201,6 @@
       "__base__": "base",
       "config_set_value": {
         "tokenizer_type": "PretrainedFromHF",
-        "intermediate_size": 11008,
         "qkv_type": "pack_gqa"
       },
       "config_hf_key_mapping": {

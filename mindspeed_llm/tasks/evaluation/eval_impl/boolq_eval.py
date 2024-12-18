@@ -53,6 +53,10 @@ class BoolqEval(DatasetEval):
 
         for file in os.listdir(self.test_dir):
             file_path = os.path.join(self.test_dir, file)
+            
+            if not os.path.exists(file_path):
+                raise FileExistsError("The file ({}) does not exist !".format(file_path))
+            
             with open(file_path, encoding='utf-8') as f:
                 boolq_question_list = []
                 for line in f.readlines():
@@ -104,7 +108,7 @@ class BoolqEval(DatasetEval):
                 total_n += len(boolq_question_list)
                 total_acc_n += acc_n
                 answer_result['Boolq_dataset'] = subject_result
-                score_datas.append(['Boolq_dataset', len(boolq_question_list), acc_n / len(boolq_question_list)])
+                score_datas.append(['Boolq_dataset', len(boolq_question_list), check_divisible_by_zero(acc_n, len(boolq_question_list))])
 
             if self.task_pbar is not None:
                 self.task_pbar.close()

@@ -374,6 +374,8 @@ class HuggingfaceModel(ModelBase):
         for key_target in config_value:
             self.args[key_target] = config_value[key_target]
 
+        if self.args_cmd.model_type_hf == "qwen" and "intermediate_size" in self.args:
+            self.args["intermediate_size"] = self.args["intermediate_size"] // 2
         if (
                 "num_key_value_heads" in self.args and
                 self.args["num_attention_heads"] != self.args["num_key_value_heads"]

@@ -55,10 +55,18 @@ class BBHEval(DatasetEval):
 
         for file in os.listdir(self.test_dir):
             file_path = os.path.join(self.test_dir, file)
+            
+            if not os.path.exists(file_path):
+                raise FileExistsError("The file ({}) does not exist !".format(file_path))
+            
             with open(file_path, encoding='utf-8') as f:
                 bbh_dataset = json.load(f)
             subject_name = re.sub(r'(?:_test|_val|_dev)?\.\w+$', "", file)
             subject_result = {}
+            if 'examples' in bbh_dataset:
+                sample_n += len(bbh_dataset['examples'])
+            else:
+                raise ValueError(f"key 'examples' not found in the bbh_dataset")
             sample_n += len(bbh_dataset['examples'])
             acc_n = 0
             sorted_dataset = sorted(bbh_dataset['examples'], key=lambda x: len(x['input']))
