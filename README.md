@@ -49,8 +49,6 @@ MindSpeed-LLM当前已支持和预置大模型列表：
 - Mamba-Hybird: [<u>An Empirical Study of Mamba-based Language Models</u>](https://arxiv.org/pdf/2406.07887)
 - DeepSeek-V2: [236B](https://huggingface.co/deepseek-ai/DeepSeek-V2)
 - DeepSeek-V2.5: [236B](https://huggingface.co/deepseek-ai/DeepSeek-V2.5)
-- QWen2.5: [72B](https://huggingface.co/Qwen/Qwen2.5-72B)
-- MiniCPM3: [4B](https://huggingface.co/openbmb/MiniCPM3-4B)
 - Yi1.5: [6B](https://huggingface.co/01-ai/Yi-1.5-6B), [9B](https://huggingface.co/01-ai/Yi-1.5-9B), [34B](https://huggingface.co/01-ai/Yi-1.5-34B)
 - Phi3.5: [MoE](https://huggingface.co/microsoft/Phi-3.5-MoE-instruct), [Mini](https://huggingface.co/microsoft/Phi-3.5-mini-instruct)
 
