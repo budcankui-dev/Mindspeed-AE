@@ -105,6 +105,10 @@ class HumanEval(DatasetEval):
 
         for file in os.listdir(test_dir):
             test_code_path = os.path.join(self.test_dir, file)
+            
+            if not os.path.exists(test_code_path):
+                raise FileNotFoundError(f"Error: {test_code_path} does not exist.")
+
             with open(test_code_path, 'r') as fp:
                 for line in fp:
                     if any(not x.isspace() for x in line):

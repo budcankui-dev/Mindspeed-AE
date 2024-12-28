@@ -63,7 +63,12 @@ class CEvalExam(DatasetEval):
 
         for file in os.listdir(self.test_dir):
             file_path = os.path.join(self.test_dir, file)
-            data_df = pd.read_csv(file_path)
+            
+            if os.path.exists(file_path):
+                data_df = pd.read_csv(file_path)
+            else:
+                raise FileNotFoundError(f"Error: {file_path} does not exist.")
+            
             subject_name = re.sub(r'(?:_test|_val|_dev)?\.\w+$', "", file)
             subject_result = {}
             sample_n += len(data_df)

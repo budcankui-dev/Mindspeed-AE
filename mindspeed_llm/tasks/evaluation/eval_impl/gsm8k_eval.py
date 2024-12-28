@@ -56,6 +56,10 @@ class Gsm8kEval(DatasetEval):
 
         for file in os.listdir(self.test_dir):
             file_path = os.path.join(self.test_dir, file)
+            
+            if not os.path.exists(file_path):
+                raise FileNotFoundError(f"Error: {file_path} does not exist.")
+            
             with open(file_path, encoding='utf-8') as f:
                 gsm8k_list = []
                 for line in f.readlines():

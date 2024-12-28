@@ -63,7 +63,12 @@ class MmluEval(DatasetEval):
 
         for file in os.listdir(self.test_dir):
             file_path = os.path.join(self.test_dir, file)
-            data_df = pd.read_csv(file_path, names=['question', 'A', 'B', 'C', 'D', 'answer'])
+            
+            if os.path.exists(file_path):
+                data_df = pd.read_csv(file_path, names=['question', 'A', 'B', 'C', 'D', 'answer'])
+            else:
+                raise FileNotFoundError(f"Error: {file_path} does not exist.")
+            
             subject_name = re.sub(r'(?:_test|_val|_dev)?\.\w+$', "", file)  # 文件命名规则类似  {subject}_test.csv
             subject = subject_name.replace("_", " ")
             subject_result = {}
