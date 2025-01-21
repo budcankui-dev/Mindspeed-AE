@@ -6,6 +6,7 @@ source /usr/local/Ascend/ascend-toolkit/set_env.sh
 # 设置需要的并行配置
 python convert_ckpt.py \
     --model-type GPT \
+    --moe-grouped-gemm \
     --load-model-type hf \
     --save-model-type mg \
     --params-dtype bf16 \

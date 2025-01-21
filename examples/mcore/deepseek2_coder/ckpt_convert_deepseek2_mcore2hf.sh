@@ -14,4 +14,5 @@ python convert_ckpt.py \
    --target-pipeline-parallel-size 1 \
    --target-expert-parallel-size 1 \
    --load-dir ./model_weights/deepseek2-coder-mcore/ \
-   --save-dir ./model_from_hf/deepseek2-coder-hf/
+   --save-dir ./model_from_hf/deepseek2-coder-hf/ \
+   --spec mindspeed_llm.tasks.models.spec.deepseek_spec layer_spec
