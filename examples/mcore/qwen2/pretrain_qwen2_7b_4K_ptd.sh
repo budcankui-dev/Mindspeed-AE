@@ -79,7 +79,6 @@ GPT_ARGS="
     --bf16 \
     --group-query-attention \
     --num-query-groups 4 \
-    --use-mc2 \
     --use-distributed-optimizer \
     --overlap-grad-reduce
 "

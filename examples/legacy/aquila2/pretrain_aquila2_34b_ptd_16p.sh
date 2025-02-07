@@ -71,7 +71,7 @@ GPT_ARGS="
     --untie-embeddings-and-output-weights \
     --use-flash-attn \
     --use-fused-rmsnorm \
-    --use-mc2 \
+
     --weight-decay 1e-2 \
 "
 

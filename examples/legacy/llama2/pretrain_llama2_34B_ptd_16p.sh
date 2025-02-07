@@ -70,7 +70,7 @@ GPT_ARGS="
     --bf16 \
     --use-fused-swiglu \
     --use-fused-rotary-pos-emb \
-    --use-mc2 \
+
 "
 
 DATA_ARGS="

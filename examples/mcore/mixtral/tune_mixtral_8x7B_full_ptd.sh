@@ -76,7 +76,6 @@ GPT_ARGS="
     --use-flash-attn \
     --use-fused-swiglu \
     --use-fused-rmsnorm \
-    --use-mc2 \
     --make-vocab-size-divisible-by 1 \
     --tensor-model-parallel-size ${TP} \
     --pipeline-model-parallel-size ${PP} \

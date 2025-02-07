@@ -63,7 +63,6 @@ GPT_ARGS="
     --norm-epsilon 1e-6 \
     --normalization RMSNorm \
     --use-fused-swiglu \
-    --use-mc2 \
     --swiglu \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \

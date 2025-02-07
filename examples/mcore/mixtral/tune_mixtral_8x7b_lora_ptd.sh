@@ -43,7 +43,6 @@ MOE_ARGS="
 
 GPT_ARGS="
     --num-workers 16 \
-    --use-mc2 \
     --use-mcore-models \
     --disable-bias-linear \
     --seq-length 32768 \
@@ -72,7 +71,6 @@ GPT_ARGS="
     --no-check-for-nan-in-loss-and-grad \
     --overlap-grad-reduce \
     --overlap-param-gather \
-    --use-mc2 \
     --make-vocab-size-divisible-by 1 \
    
     --tensor-model-parallel-size ${TP} \

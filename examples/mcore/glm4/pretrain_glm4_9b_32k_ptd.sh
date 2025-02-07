@@ -32,7 +32,6 @@ GPT_ARGS="
     --context-parallel-size ${CP} \
     --sequence-parallel \
     --use-mcore-models \
-    --use-mc2 \
     --use-flash-attn \
     --use-fused-swiglu \
     --use-fused-rmsnorm \

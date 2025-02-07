@@ -53,7 +53,6 @@ ROPE_ARGS="
 "
 
 OPTIMIZE_ARGS="
-    --use-mc2 \
     --use-flash-attn \
     --use-fused-rotary-pos-emb \
     --use-rotary-position-embeddings \

@@ -72,7 +72,6 @@ GPT_ARGS="
     --rotary-base 1000000 \
     --lr-decay-style constant \
     --untie-embeddings-and-output-weights \
-    --use-mc2 \
     --use-flash-attn \
     --use-rotary-position-embeddings \
     --use-fused-rotary-pos-emb \

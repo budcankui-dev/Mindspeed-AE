@@ -30,7 +30,6 @@ GPT_ARGS="
     --sequence-parallel \
     --use-mcore-models \
     --use-flash-attn \
-    --use-mc2 \
     --use-fused-rmsnorm \
     --use-fused-swiglu \
     --overlap-grad-reduce \

@@ -30,7 +30,6 @@ GPT_ARGS="
     --use-mcore-models \
     --use-fused-swiglu \
     --use-fused-rotary-pos-emb \
-    --use-mc2 \
     --num-layers 48 \
     --hidden-size 8192 \
     --ffn-hidden-size 22016 \

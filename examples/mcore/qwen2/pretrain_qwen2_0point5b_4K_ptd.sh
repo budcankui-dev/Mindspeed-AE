@@ -66,7 +66,6 @@ GPT_ARGS="
     --use-fused-rotary-pos-emb \
     --use-rotary-position-embeddings \
     --use-fused-rmsnorm \
-    --use-mc2 \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \
     --min-lr 1.25e-7 \

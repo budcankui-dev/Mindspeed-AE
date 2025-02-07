@@ -51,7 +51,7 @@ GPT_ARGS="
     --use-fused-swiglu \
     --use-flash-attn \
     --use-distributed-optimizer \
-    --use-mc2 \
+
     --tokenizer-type PretrainedFromHF \
     --tokenizer-name-or-path ${TOKENIZER_PATH} \
     --lr 1e-6 \

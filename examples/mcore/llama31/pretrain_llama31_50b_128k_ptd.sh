@@ -83,7 +83,6 @@ GPT_ARGS="
     --clip-grad 1.0 \
     --adam-beta1 0.9 \
     --adam-beta2 0.95 \
-    --use-mc2 \
     --use-cp-send-recv-overlap \
     --initial-loss-scale 4096 \
     --no-gradient-accumulation-fusion \

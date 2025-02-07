@@ -60,7 +60,7 @@ GPT_ARGS="
     --use-fused-swiglu \
     --use-rotary-position-embeddings \
     --use-fused-rotary-pos-emb \
-    --use-mc2 \
+
     --swiglu \
     --use-flash-attn \
     --no-masked-softmax-fusion \

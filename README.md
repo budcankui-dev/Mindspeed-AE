@@ -247,12 +247,6 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td>❌</td>
     <td>【昇腾】</td>
   </tr>
-  <tr>
-    <td><a href="./docs/features/mc2.md">MC2</a></td>
-    <td>✅</td>
-    <td>✅</td>
-    <td>【昇腾】</td>
-  </tr>
 </tbody></table>
 
 ---

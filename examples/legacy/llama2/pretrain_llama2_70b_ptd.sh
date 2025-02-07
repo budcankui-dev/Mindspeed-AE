@@ -71,7 +71,7 @@ GPT_ARGS="
     --use-fused-swiglu \
     --use-fused-rotary-pos-emb \
     --num-layers-per-virtual-pipeline-stage 5 \
-    --use-mc2 \
+
 "
 
 DATA_ARGS="

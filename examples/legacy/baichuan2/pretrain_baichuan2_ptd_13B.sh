@@ -58,7 +58,7 @@ GPT_ARGS="
     --use-fused-rmsnorm \
     --use-flash-attn \
     --use-fused-swiglu \
-    --use-mc2 \
+
     --swiglu \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \

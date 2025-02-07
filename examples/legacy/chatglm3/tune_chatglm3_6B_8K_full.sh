@@ -49,7 +49,7 @@ GPT_ARGS="
     --swiglu \
     --use-fused-swiglu \
     --use-distributed-optimizer \
-    --use-mc2 \
+
     --finetune \
     --stage sft \
     --is-instruction-dataset \

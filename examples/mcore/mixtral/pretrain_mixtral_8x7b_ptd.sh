@@ -72,7 +72,7 @@ GPT_ARGS="
     --no-check-for-nan-in-loss-and-grad \
     --overlap-grad-reduce \
     --overlap-param-gather \
-    --use-mc2 \
+
     --make-vocab-size-divisible-by 1 \
    
     --tensor-model-parallel-size ${TP} \

@@ -31,7 +31,6 @@ DISTRIBUTED_ARGS="
 
 ACCELERATE_ARGS="
     --swap-attention \
-    --use-mc2 \
     --reuse-fp32-param \
     --enable-recompute-layers-per-pp-rank \
     --recompute-activation-function \

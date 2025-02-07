@@ -62,7 +62,6 @@ GPT_ARGS="
     --use-fused-rotary-pos-emb \
     --use-rotary-position-embeddings \
     --use-fused-swiglu \
-    --use-mc2 \
     --overlap-grad-reduce \
     --no-masked-softmax-fusion \
     --attention-softmax-in-fp32 \

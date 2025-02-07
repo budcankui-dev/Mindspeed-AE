@@ -68,7 +68,6 @@ GPT_ARGS="
     --adam-beta2 0.95 \
     --initial-loss-scale 4096 \
     --no-gradient-accumulation-fusion \
-    --use-mc2 \
     --use-flash-attn \
     --use-fused-rotary-pos-emb \
     --use-rotary-position-embeddings \
