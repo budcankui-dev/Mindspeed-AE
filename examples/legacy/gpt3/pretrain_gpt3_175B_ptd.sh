@@ -64,8 +64,7 @@ GPT_ARGS="
     --attention-dropout 0.0 \
     --hidden-dropout 0.0 \
     --use-flash-attn \
-    --overlap-grad-reduce \
-    --use-mc2
+    --overlap-grad-reduce
 "
 
 DATA_ARGS="

@@ -63,8 +63,7 @@ GPT_ARGS="
     --attention-dropout 0.0 \
     --hidden-dropout 0.0 \
     --use-flash-attn \
-    --no-bias-gelu-fusion \
-    --use-mc2
+    --no-bias-gelu-fusion
 "
 
 DATA_ARGS="

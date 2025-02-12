@@ -100,7 +100,7 @@ OUTPUT_ARGS="
     --save ${CKPT_SAVE_DIR} \
 "
 
-torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
+torchrun $DISTRIBUTED_ARGS posttrain_gpt.py \
     $GPT_ARGS \
     $DATA_ARGS \
     $OUTPUT_ARGS \
