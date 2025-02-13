@@ -607,6 +607,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
   </tr>
 </table>
 
+已安装好以上配套环境的镜像的获取和使用方法见[镜像使用指南](./docs/DOCKER_GUIDE.md)。
 
 MindSpeed-LLM版本有以下五个维护阶段：
 
