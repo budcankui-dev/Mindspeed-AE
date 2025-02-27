@@ -96,7 +96,8 @@ class MmluEval(DatasetEval):
             for idx, row in data_df.iterrows():
                 instruction = None
                 if self.prompt_type is not None:
-                    train_dir = os.path.dirname(self.test_dir) + "/dev/"
+                    normalized_test_dir = os.path.normpath(self.test_dir)
+                    train_dir = os.path.join(os.path.dirname(normalized_test_dir), "dev")
                     train_file_path = os.path.join(train_dir, subject_name + "_dev.csv")
 
                     if not os.path.exists(train_file_path):
