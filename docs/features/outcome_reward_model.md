@@ -55,21 +55,6 @@ python ./preprocess_data.py \
 
   可选，不使用模型最后的 layernorm 层
 
-## **MindSpeed-LLM  与 <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main">LLaMA-Factory</a> loss 对比**：
-
-数据集：dpo_en
-
-训练参数设置：
-```
-per_device_train_batch_size: 1
-gradient_accumulation_steps: 1
-learning_rate: 1.0e-7
-lr_scheduler_type: constant
-fp32: true
-```
-
-![alt text](../../sources/images/reward_model/rm_chatglm3_loss_compare.png)
-
 ## 参考文献
 
 - [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)

@@ -17,20 +17,6 @@ $
 
 - **降低参数量**：由于 $A$ 和 $B$ 的秩较低，所需的参数量显著减少，节省了存储和计算成本。
 
-## MindSpeed-LLM 与 DeepSpeed 对比
-
-- **MindSpeed-LLM  与 <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main">DeepSpeed</a> loss 对比图**：
-
-![alt text](../../sources/images/lora_finetune/llama2_7b_loss_compare.png)
-
-| 问题         | DeepSpeed 回答                 | MindSpeed-LLM   回答            |
-|--------------|-------------------------------|-----------------------------|
-| User:你是谁        | Assistant:  I am John.           | MindSpeed-LLM: 我是叶凯。    |
-| User:你可以说中文吗     | Assistant:可以说中文.                   | MindSpeed-LLM: 可以。         |
-| User:能推荐几本自然语言处理的书吗?         | Assistant:自然语言处理的书有很多,我可以推荐几本优秀的书:<br>《自然语言处理导论》、《深度学习与自然语言处理》、《自然语言处理概论》、《自然语言处理实战》等。               | MindSpeed-LLM: 可以推荐的自然语言处理的书有《自然语言处理入门》、《深度学习:自然语言处理和计算机视觉》、《自然语言处理评估》、《统计自然语言处理》等。 |
-| User:上面几本书的阅读顺序是什么呢? | Assistant:上面几本书的阅读顺序是<br>《自然语言处理导论》、《深度学习与自然语言处理》、《自然语言处理概论》、《自然语言处理实战》。 | MindSpeed-LLM: 建议先阅读《自然语言处理入门》、《自然语言处理评估》、《统计自然语言处理》,然后再阅读《深度学习:自然语言处理和计算机视觉》。     |
-| User:9.11和09.9哪个比较大  | Assistant: 9.11比9.9大。             | MindSpeed-LLM: 9.11 |
-
 ### 数据预处理示例
 
 MindSpeed-LLM 数据预处理脚本命名和启动方法：

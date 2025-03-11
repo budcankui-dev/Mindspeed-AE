@@ -64,11 +64,6 @@ dpo训练脚本参照：examples/mcore/llama3/dpo_llama3_8b_full_ptd.sh
 
 注：当前版本DPO仅支持非MOE模型全参训练，分布式训练仅支持TP和PP切分。
 
-
-### **MindSpeed-LLM  与 <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main">DeepSpeed</a> loss 对比**：
-
-![alt text](../../sources/images/dpo/dpo_full_llama3_8b_loss_compare.png)
-
 ## 参考文献
 
 - [Direct Preference Optimization](https://export.arxiv.org/abs/2305.18290)
