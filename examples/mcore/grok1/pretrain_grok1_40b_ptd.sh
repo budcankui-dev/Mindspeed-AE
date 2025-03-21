@@ -38,7 +38,6 @@ MOE_ARGS="
     --moe-permutation-async-comm \
     --moe-token-dispatcher-type alltoall \
     --moe-grouped-gemm \
-    --use-fused-moe-token-permute-and-unpermute \
     --num-experts 8 \
     --moe-router-load-balancing-type aux_loss \
     --moe-router-topk 2 \
@@ -49,7 +48,6 @@ MOE_ARGS="
 "
 
 GPT_ARGS="
-    --spec mindspeed_llm.tasks.models.spec.grok_spec layer_spec \
     --use-mcore-models \
     --tensor-model-parallel-size ${TP} \
     --pipeline-model-parallel-size ${PP} \
@@ -70,11 +68,10 @@ GPT_ARGS="
     --seq-length ${SEQ_LEN} \
     --max-position-embeddings 8192 \
     --use-distributed-optimizer \
-    --gemm-gradient-accumulation-fusion \
-    --reuse-fp32-param \
     --use-flash-attn \
     --make-vocab-size-divisible-by 1 \
     --untie-embeddings-and-output-weights \
+    --no-gradient-accumulation-fusion \
     --disable-bias-linear \
     --attention-dropout 0.0 \
     --init-method-std 0.02 \
