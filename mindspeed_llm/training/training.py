@@ -40,8 +40,8 @@ from megatron.training.arguments import core_transformer_config_from_args
 from megatron.training.training import (
     train_step, get_num_microbatches, calc_params_l2_norm,
     training_log, evaluate_and_print_results,
-    save_checkpoint_and_time, print_datetime,
-    num_floating_point_operations, get_one_logger,
+    compute_throughputs_and_append_to_progress_log,
+    print_datetime, num_floating_point_operations, get_one_logger,
     append_to_progress_log, build_train_valid_test_data_iterators
 )
 import megatron.training.utils
@@ -386,6 +386,26 @@ def pretrain(train_valid_test_dataset_provider,
                                    test_data_iterator, model,
                                    iteration, process_non_loss_data_func, config,
                                    verbose=True, write_to_tensorboard=not args.skip_train)
+
+
+def save_checkpoint_and_time(iteration, model, optimizer, opt_param_scheduler,
+                             num_floating_point_operations_so_far):
+    args = get_args()
+    timers = get_timers()
+    # Extra barrier is added to make sure all ranks report the max time.
+    timers('save-checkpoint', log_level=0).start(barrier=True)
+    if args.use_distributed_optimizer and args.overlap_param_gather:
+        optimizer.disable_pre_hook()
+    save_checkpoint(iteration, model, optimizer, opt_param_scheduler,
+                    num_floating_point_operations_so_far)
+    if args.use_distributed_optimizer and args.overlap_param_gather:
+        optimizer.enable_pre_hook()
+    timers('save-checkpoint').stop(barrier=True)
+    timers.log(['save-checkpoint'])
+
+    if args.log_progress:
+        compute_throughputs_and_append_to_progress_log(iteration,
+                                                       num_floating_point_operations_so_far)
 
 
 def train(forward_step_func, model, optimizer, opt_param_scheduler,
