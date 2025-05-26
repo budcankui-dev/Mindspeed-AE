@@ -13,20 +13,20 @@
     </a>
 </p>
 
-MindSpeed-LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](https://www.hiascend.com/) 提供端到端的大语言模型训练方案，包含分布式预训练、分布式指令微调、分布式偏好对齐以及对应的开发工具链。
+MindSpeed LLM，原仓名ModelLink，作为昇腾大模型训练框架，旨在为华为 [昇腾芯片](https://www.hiascend.com/) 提供端到端的大语言模型训练方案，包含分布式预训练、分布式指令微调、分布式偏好对齐以及对应的开发工具链。
 
 ***<small>注 : 原包名 modellink 更改为 mindspeed_llm </small>***
 
 ---
 ## 预置模型
-MindSpeed-LLM当前已支持和预置大模型列表：
+MindSpeed LLM当前已支持和预置大模型列表：
 
-- MindSpeed-LLM [100+ 预置大模型及其权重下载地址](./docs/models/pretrain.md)
+- MindSpeed LLM [100+ 预置大模型及其权重下载地址](./docs/models/pretrain.md)
 
 ## 用户使用指南
-- MindSpeed-LLM [使用指南](./docs/USER_GUIDE.md)
-- [基于 Megatron-LM + MindSpeed-LLM 训练自定义大模型](./docs/DEVELOP_GUIDE.md) 
-## MindSpeed-LLM 大模型训练框架功能特性
+- MindSpeed LLM [使用指南](./docs/USER_GUIDE.md)
+- [基于 Megatron-LM + MindSpeed LLM 训练自定义大模型](./docs/DEVELOP_GUIDE.md) 
+## MindSpeed LLM 大模型训练框架功能特性
 
 ### 训练方案
 
@@ -269,7 +269,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td rowspan="7">llama2-7B</td>
     <td rowspan="7">Atlas 900 A2 PODc</td>
     <td rowspan="7">1x8</td>
-    <td>MindSpeed-LLM + NPU</td>
+    <td>MindSpeed LLM + NPU</td>
     <td>全参</td>
     <td>dynamic</td>
     <th><a href="./examples/mcore/llama2/tune_llama2_7b_full_ptd.sh">45.7 samples/s</a></th>
@@ -287,7 +287,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td>46.5 samples/s</td>
   </tr>
   <tr>
-    <td>MindSpeed-LLM + NPU</td>
+    <td>MindSpeed LLM + NPU</td>
     <td>全参</td>
     <td>16K</td>
     <th><a href="./examples/mcore/llama2/tune_llama2_7b_full_pack_16k.sh">1.455 samples/s</a></th>
@@ -299,7 +299,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td>1.003 samples/s</td>
   </tr>
   <tr>
-    <td>MindSpeed-LLM + NPU</td>
+    <td>MindSpeed LLM + NPU</td>
     <td>全参</td>
     <td>32K</td>
     <th><a href="./examples/mcore/llama2/tune_llama2_7b_full_pack_32k.sh">0.727 samples/s</a></th>
@@ -314,7 +314,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td rowspan="3">llama2-13B</td>
     <td rowspan="3">Atlas 900 A2 PODc</td>
     <td rowspan="3">1x8</td>
-    <td>MindSpeed-LLM + NPU</td>
+    <td>MindSpeed LLM + NPU</td>
     <td>全参</td>
     <td>dynamic</td>
     <th><a href="./examples/mcore/llama2/tune_llama2_13b_full_ptd.sh">28.4 samples/s</a></th>
@@ -335,7 +335,7 @@ MindSpeed-LLM当前已支持和预置大模型列表：
     <td rowspan="2">llama2-70B</td>
     <td rowspan="2">Atlas 900 A2 PODc</td>
     <td rowspan="2">1x8</td>
-    <td>MindSpeed-LLM + NPU</td>
+    <td>MindSpeed LLM + NPU</td>
     <td>LoRA</td>
     <td>dynamic</td>
     <th><a href="./examples/legacy/llama2/tune_llama2_70b_lora_ptd.sh">11.72 samples/s</a></th>
@@ -609,20 +609,20 @@ MindSpeed-LLM当前已支持和预置大模型列表：
 
 已安装好以上配套环境的镜像的获取和使用方法见[镜像使用指南](./docs/DOCKER_GUIDE.md)。
 
-MindSpeed-LLM版本有以下五个维护阶段：
+MindSpeed LLM版本有以下五个维护阶段：
 
 | **状态**            | **时间** | **说明**                                                               |
 | ------------------- | -------- |----------------------------------------------------------------------|
 | 计划                | 1—3 个月 | 计划特性                                                                 |
 | 开发                | 3 个月   | 开发特性                                                                 |
-| 维护                | 6-12 个月| 合入所有已解决的问题并发布版本，针对不同的MindSpeed-LLM版本采取不同的维护策略，常规版本和长期支持版本维护周期分别为6个月和12个月 |
+| 维护                | 6-12 个月| 合入所有已解决的问题并发布版本，针对不同的MindSpeed LLM版本采取不同的维护策略，常规版本和长期支持版本维护周期分别为6个月和12个月 |
 | 无维护              | 0—3 个月 | 合入所有已解决的问题，无专职维护人员，无版本发布                                             |
 | 生命周期终止（EOL） | N/A      | 分支不再接受任何修改                                                           |
 
 
-MindSpeed-LLM已发布版本维护策略：
+MindSpeed LLM已发布版本维护策略：
 
-| **MindSpeed-LLM版本** | **对应标签** | **维护策略** | **当前状态** | **发布时间**   | **后续状态**         | **EOL日期** |
+| **MindSpeed LLM版本** | **对应标签** | **维护策略** | **当前状态** | **发布时间**   | **后续状态**         | **EOL日期** |
 |-----------------|-----------|-----------|--------|------------|-----------------------|-----------|
 | 1.0.0               |     \       |  常规版本  | 维护   | 2024/12/30 | 预计2025/06/30起无维护 |           |
 | 1.0.RC3             | v1.0.RC3.0  |  常规版本  | 维护   | 2024/09/30 | 预计2025/03/30起无维护 |           |
@@ -634,7 +634,7 @@ MindSpeed-LLM已发布版本维护策略：
 
 ## 致谢
 
-MindSpeed-LLM由华为公司的下列部门联合贡献 ：
+MindSpeed LLM由华为公司的下列部门联合贡献 ：
 - 昇腾计算产品部
 - 计算算法部
 - 计算研究部
@@ -643,23 +643,23 @@ MindSpeed-LLM由华为公司的下列部门联合贡献 ：
 - 华为云计算
 - 昇腾计算生态使能部
 
-感谢来自社区的每一个PR，欢迎贡献 MindSpeed-LLM
+感谢来自社区的每一个PR，欢迎贡献 MindSpeed LLM
 
 ---
 
 ## 安全声明
 
-[MindSpeed-LLM安全声明](https://gitee.com/ascend/MindSpeed-LLM/wikis/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E5%A3%B0%E6%98%8E)
+[MindSpeed LLM安全声明](https://gitee.com/ascend/MindSpeed-LLM/wikis/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E5%A3%B0%E6%98%8E)
 
 # 免责声明
 
-## 致MindSpeed-LLM使用者
-1. MindSpeed-LLM提供的模型仅供您用于非商业目的。
-2. 对于各模型，MindSpeed-LLM平台仅提示性地向您建议可用于训练的数据集，华为不提供任何数据集，如您使用这些数据集进行训练，请您特别注意应遵守对应数据集的License，如您因使用数据集而产生侵权纠纷，华为不承担任何责任。
-3. 如您在使用MindSpeed-LLM模型过程中，发现任何问题（包括但不限于功能问题、合规问题），请在Gitee提交issue，我们将及时审视并解决。
+## 致MindSpeed LLM使用者
+1. MindSpeed LLM提供的模型仅供您用于非商业目的。
+2. 对于各模型，MindSpeed LLM平台仅提示性地向您建议可用于训练的数据集，华为不提供任何数据集，如您使用这些数据集进行训练，请您特别注意应遵守对应数据集的License，如您因使用数据集而产生侵权纠纷，华为不承担任何责任。
+3. 如您在使用MindSpeed LLM模型过程中，发现任何问题（包括但不限于功能问题、合规问题），请在Gitee提交issue，我们将及时审视并解决。
 
 ## 致数据集所有者
-如果您不希望您的数据集在MindSpeed-LLM中的模型被提及，或希望更新MindSpeed-LLM中的模型关于您的数据集的描述，请在Gitee提交issue，我们将根据您的issue要求删除或更新您的数据集描述。衷心感谢您对MindSpeed-LLM的理解和贡献。
+如果您不希望您的数据集在MindSpeed LLM中的模型被提及，或希望更新MindSpeed LLM中的模型关于您的数据集的描述，请在Gitee提交issue，我们将根据您的issue要求删除或更新您的数据集描述。衷心感谢您对MindSpeed LLM的理解和贡献。
 
 ## License声明
-Ascend MindSpeed-LLM提供的模型，如模型目录下存在License的，以该License为准。如模型目录下不存在License的，以Apache 2.0许可证许可，对应许可证文本可查阅Ascend MindSpeed-LLM根目录。
+Ascend MindSpeed LLM提供的模型，如模型目录下存在License的，以该License为准。如模型目录下不存在License的，以Apache 2.0许可证许可，对应许可证文本可查阅Ascend MindSpeed LLM根目录。
