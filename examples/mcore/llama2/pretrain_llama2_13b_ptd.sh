@@ -1,3 +1,26 @@
+#!/bin/bash
+export CUDA_DEVICE_MAX_CONNECTIONS=1
+export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+
+GPUS_PER_NODE=2
+MASTER_ADDR=localhost
+MASTER_PORT=6000
+NNODES=1
+NODE_RANK=0
+#WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
+WORLD_SIZE=2
+
+#路径
+RD=/data01/zhangjialiang/Mindspeed-LLM-AE
+
+CKPT_SAVE_DIR="$RD/ckpt/llama-2-13b"
+DATA_PATH="$RD/dataset/enwiki_text_document"
+TOKENIZER_MODEL="$RD/model_from_hf/llama-2-13b-chat-hf/tokenizer.model"
+
+CKPT_LOAD_DIR="$RD/model_weights"
+TP=1
+PP=1
+
 DISTRIBUTED_ARGS="
     --nproc_per_node $GPUS_PER_NODE \
     --nnodes $NNODES \
@@ -79,4 +102,3 @@ python -m torch.distributed.launch $DISTRIBUTED_ARGS pretrain_gpt.py \
     --distributed-backend nccl \
     --save $CKPT_SAVE_DIR \
     | tee logs/train_llama2_13b.log
-
