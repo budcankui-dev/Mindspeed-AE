@@ -87,6 +87,11 @@ DATA_ARGS="
     --data-path $DATA_PATH \
     --split 949,50,1
 "
+HeterMoE_ARGS="
+    --herter-moe-enable \
+    --herter-moe-ffn-world-size 1 \
+    --herter-moe-attention-world-size 1 \
+"
 
 OUTPUT_ARGS="
     --log-interval 1 \
@@ -99,6 +104,7 @@ python -m torch.distributed.launch $DISTRIBUTED_ARGS pretrain_gpt.py \
     $GPT_ARGS \
     $DATA_ARGS \
     $OUTPUT_ARGS \
+    $HeterMoE_ARGS \
     --distributed-backend nccl \
     --save $CKPT_SAVE_DIR \
     | tee logs/train_llama2_13b.log

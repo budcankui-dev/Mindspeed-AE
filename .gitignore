@@ -144,7 +144,7 @@ cython_debug/
 .idea
 
 # megatron core
-/megatron/
+# /megatron/
 
 # mindspeed
 /mindspeed/

@@ -60,9 +60,19 @@ def process_args(parser):
     parser = _add_yarn_args(parser)
     parser = _add_deepseek_moe_args(parser)
     parser = _add_rl_args(parser)
+    parser = _add_herterMoE_args(parser)
 
     return parser
+def _add_herterMoE_args(parser):
+    group = parser.add_argument_group(title='herterMoE')
 
+    group.add_argument('--herter-moe-enable', action='store_true', default=False,type=bool,
+                       help='Enable heteroMoE layers in the model.')
+    group.add_argument('--herter-moe-attention-world-size', type=int, default=1,
+                       help='The attention rank world size for heteroMoE layers.')
+    group.add_argument('--herter-moe-ffn-world-size', type=int, default=1,
+                       help='The ffn rank world size for heteroMoE layers.')
+    return parser
 
 def _add_mla_args(parser):
     group = parser.add_argument_group(title='multi-head latent attention')

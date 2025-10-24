@@ -1,0 +1,1 @@
+from .hetermoe import set_heteroMoE_config
