@@ -11,7 +11,7 @@ NODE_RANK=0
 WORLD_SIZE=2
 
 #路径
-RD=/data01/zhangjialiang/Mindspeed-LLM-AE
+RD=/data01/zhangjialiang/Mindspeed-AE-main
 
 CKPT_SAVE_DIR="$RD/ckpt/llama-2-13b"
 DATA_PATH="$RD/dataset/enwiki_text_document"
@@ -88,7 +88,7 @@ DATA_ARGS="
     --split 949,50,1
 "
 HeterMoE_ARGS="
-    --herter-moe-enable \
+    --herter-moe-enable  True\
     --herter-moe-ffn-world-size 1 \
     --herter-moe-attention-world-size 1 \
 "

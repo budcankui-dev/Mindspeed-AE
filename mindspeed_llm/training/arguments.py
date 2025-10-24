@@ -66,7 +66,7 @@ def process_args(parser):
 def _add_herterMoE_args(parser):
     group = parser.add_argument_group(title='herterMoE')
 
-    group.add_argument('--herter-moe-enable', action='store_true', default=False,type=bool,
+    group.add_argument('--herter-moe-enable', default=False,type=bool,
                        help='Enable heteroMoE layers in the model.')
     group.add_argument('--herter-moe-attention-world-size', type=int, default=1,
                        help='The attention rank world size for heteroMoE layers.')
