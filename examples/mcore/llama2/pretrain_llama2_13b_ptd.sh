@@ -1,21 +1,3 @@
-#!/bin/bash
-export CUDA_DEVICE_MAX_CONNECTIONS=1
-export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
-
-GPUS_PER_NODE=8
-MASTER_ADDR=localhost
-MASTER_PORT=6000
-NNODES=1
-NODE_RANK=0
-WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
-
-CKPT_SAVE_DIR="your model save ckpt path"
-DATA_PATH="your data path"
-TOKENIZER_MODEL="your tokenizer path"
-CKPT_LOAD_DIR="your model ckpt path"
-TP=8
-PP=1
-
 DISTRIBUTED_ARGS="
     --nproc_per_node $GPUS_PER_NODE \
     --nnodes $NNODES \
@@ -29,10 +11,10 @@ GPT_ARGS="
     --tensor-model-parallel-size ${TP} \
     --pipeline-model-parallel-size ${PP} \
     --sequence-parallel \
-    --num-layers 40 \
-    --hidden-size 5120 \
-    --ffn-hidden-size 13824 \
-    --num-attention-heads 40 \
+    --num-layers 16 \
+    --hidden-size 512 \
+    --ffn-hidden-size 1382 \
+    --num-attention-heads 16\
     --tokenizer-type Llama2Tokenizer \
     --tokenizer-model ${TOKENIZER_MODEL} \
     --seq-length 4096 \
@@ -69,6 +51,13 @@ GPT_ARGS="
     --use-fused-swiglu \
     --use-fused-rotary-pos-emb \
     --bf16
+    --profile
+    --profile-step-start 2
+    --profile-step-end 3
+    --profile-ranks 0 8 16
+    --profile-level level2
+    --profile-with-cpu
+    --profile-save-path ./profile_dir
 "
 
 DATA_ARGS="
@@ -90,3 +79,4 @@ python -m torch.distributed.launch $DISTRIBUTED_ARGS pretrain_gpt.py \
     --distributed-backend nccl \
     --save $CKPT_SAVE_DIR \
     | tee logs/train_llama2_13b.log
+
