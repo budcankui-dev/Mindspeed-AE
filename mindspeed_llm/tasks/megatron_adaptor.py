@@ -219,12 +219,24 @@ class CoreAdaptation(MegatronAdaptationABC):
 
         # Layer Definition
         # For NPU, we use local-mcore-structrue in te layer.
-        MegatronAdaptation.register(
-            'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',
-            get_gpt_layer_local_spec)
-        MegatronAdaptation.register('megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec',
-                                    get_gpt_layer_local_spec_wrapper)
 
+        # heterMoE  
+        args= MegatronAdaptation.get_args()
+        if args.heter_moe_enable: 
+            #如果AE分离，层结构替换为AE分离逻辑
+            from mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
+            MegatronAdaptation.register(
+                'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',
+                get_gpt_layer_local_spec_heter_moe)
+            MegatronAdaptation.register('mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe',
+                                        get_gpt_layer_local_spec_wrapper)
+        else:
+            MegatronAdaptation.register(
+                'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',
+                get_gpt_layer_local_spec)
+            MegatronAdaptation.register('megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec',
+                                        get_gpt_layer_local_spec_wrapper)
+        
         MegatronAdaptation.register('megatron.training.utils.get_batch_on_this_cp_rank', get_batch_on_this_cp_rank)
         MegatronAdaptation.register('megatron.training.utils.get_batch_on_this_tp_rank', get_batch_on_this_tp_rank)
         MegatronAdaptation.register('megatron.training.dist_signal_handler.get_device', get_device_wrapper)
