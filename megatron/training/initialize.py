@@ -244,11 +244,11 @@ def _initialize_distributed():
     # Set the tensor model-parallel, pipeline model-parallel, and
     # data-parallel communicators.
     if device_count > 0:
-        # 设置Android MindSpeed-LLM的herterMoE配置 args添加属性 herter_moe_is_A herter_moe_is_E 
+        #heterMoE 设置Android MindSpeed-LLM的herterMoE配置 args添加属性 herter_moe_is_A herter_moe_is_E 
         from mindspeed_llm.hetermoe import set_heteroMoE_config
         set_heteroMoE_config(args)
-        from megatron.training import print_rank_0
-        print_rank_0(f"herterMoE config: is_A={getattr(args, 'herter_moe_is_A', False)}, is_E={getattr(args, 'herter_moe_is_E', False)}")   
+        # from megatron.training import print_rank_0
+        # print_rank_0(f"herterMoE config: is_A={getattr(args, 'herter_moe_is_A', False)}, is_E={getattr(args, 'herter_moe_is_E', False)}")   
 
         if mpu.model_parallel_is_initialized():
             print("model parallel is already initialized")

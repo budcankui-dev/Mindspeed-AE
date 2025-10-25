@@ -5,6 +5,7 @@ import os
 from functools import partial
 from typing import Union
 
+from mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
 import torch
 from mindspeed_llm import megatron_adaptor
 from megatron.training import get_args
@@ -61,6 +62,9 @@ def model_provider(pre_process=True, post_process=True) -> Union[GPTModel, megat
     if args.use_mcore_models:
         if args.spec is not None:
             transformer_layer_spec = import_module(args.spec)
+        # heterMoE 如果AE分离，执行此函数获得层结构
+        elif args.heter_moe_enable:
+            transformer_layer_spec = get_gpt_layer_local_spec_heter_moe(args.num_experts, args.moe_grouped_gemm)
         else:
             if use_te:
                 transformer_layer_spec = get_gpt_layer_with_transformer_engine_spec(args.num_experts, args.moe_grouped_gemm)

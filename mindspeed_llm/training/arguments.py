@@ -60,9 +60,11 @@ def process_args(parser):
     parser = _add_yarn_args(parser)
     parser = _add_deepseek_moe_args(parser)
     parser = _add_rl_args(parser)
+    # heterMoE
     parser = _add_herterMoE_args(parser)
 
     return parser
+# heterMoE 参数解析
 def _add_herterMoE_args(parser):
     group = parser.add_argument_group(title='herterMoE')
 

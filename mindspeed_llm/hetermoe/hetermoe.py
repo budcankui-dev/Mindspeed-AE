@@ -36,5 +36,10 @@ def set_heteroMoE_config(args):
             args.herter_moe_is_E= True
             args.herter_moe_is_A= False
     _initialized = True
-
-
+# 用于herterMoE debug
+def heterMoE_debug_print(msg, rank=0):
+    if torch.distributed.is_initialized():
+        if torch.distributed.get_rank() == rank:
+            print(msg, flush=True)
+    else:
+        print(msg, flush=True)
