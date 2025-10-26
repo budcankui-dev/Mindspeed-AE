@@ -264,7 +264,7 @@ def build_train_args(*input_args):
     return train_args, test_data_iterator_list
 
 
-def pretrain(train_valid_test_dataset_provider,
+def pretrain_A(train_valid_test_dataset_provider,
              model_provider,
              model_type,
              forward_step_func,
@@ -299,7 +299,7 @@ def pretrain(train_valid_test_dataset_provider,
         args_defaults: a dictionary from argument-name to argument-value. It
             to set already parse arguments.
     """
-    # 这里注释掉，因为在外层pretrain_gpt.py已经执行过了
+    # 提取在外层pretrain.py执行了,所以这里注释掉
     # # Initalize and get arguments, timers, and Tensorboard writer.
     # initialize_megatron(extra_args_provider=extra_args_provider,
     #                     args_defaults=args_defaults)
