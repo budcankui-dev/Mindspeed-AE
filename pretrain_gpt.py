@@ -6,7 +6,10 @@ from functools import partial
 from typing import Union
 
 from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
+from hetermoe.A.training.training import pretrain_A
 from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
+from hetermoe.E.training.training import pretrain_E
+from megatron.training.initialize import initialize_megatron
 import torch
 from mindspeed_llm import megatron_adaptor
 from megatron.training import get_args
@@ -255,7 +258,26 @@ def main():
     # Temporary for transition to core datasets
     train_valid_test_datasets_provider.is_distributed = True
 
-    pretrain(train_valid_test_datasets_provider,
+    # 将megatron初始化从pretrain函数中提取到这里执行
+    # Initalize and get arguments, timers, and Tensorboard writer.
+    initialize_megatron()
+    args = get_args()
+
+    if args.heter_moe_enable:
+        print_rank_0("***** Running heteroMoE GPT training *****")
+        print_rank_0(f"heteroMoE config: attention_world_size={args.heter_moe_attention_world_size}, ffn_world_size={args.heter_moe_ffn_world_size}")
+        if args.heter_moe_is_A:
+            pretrain_A(train_valid_test_datasets_provider,
+             model_provider,
+             ModelType.encoder_or_decoder,
+             forward_step)
+        else: #heter_moe_is_E
+            pretrain_E(train_valid_test_datasets_provider,
+             model_provider,
+             ModelType.encoder_or_decoder,
+             forward_step)
+    else:
+         pretrain(train_valid_test_datasets_provider,
              model_provider,
              ModelType.encoder_or_decoder,
              forward_step)
