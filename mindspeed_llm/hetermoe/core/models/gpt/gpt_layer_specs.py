@@ -19,6 +19,7 @@ from megatron.core.transformer.spec_utils import ModuleSpec
 from megatron.core.transformer.transformer_block import TransformerBlockSubmodules
 from megatron.core.transformer.transformer_layer import TransformerLayer, TransformerLayerSubmodules
 from megatron.training.global_vars import get_args
+from mindspeed_llm.hetermoe.transformer.mlp import HeterA2EMLP
 
 from mindspeed_llm.hetermoe.core.transformer.transformer_layer import HeterExpertTransformerLayer,HeterExpertTransformerLayerSubmodules
 from mindspeed_llm.hetermoe.core.transformer.moe.moe_layer import HeterMoELayer
@@ -34,17 +35,16 @@ def get_gpt_layer_local_spec_heter_moe(
      # 要么heter_moe_is_A要么heter_moe_is_E
     # assert  
     if args.heter_moe_is_A:
-        return get_gpt_layer_local_spec_heter_moe_is_A()
+        return get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm=qk_layernorm)
     if args.heter_moe_is_E:
         return get_gpt_layer_local_spec_heter_moe_is_E()
   
-       
+
               
 
-def get_gpt_layer_local_spec_heter_moe_is_A():
-    mlp = _get_mlp_module_spec_heter_moe(
-        use_te=False, num_experts=num_experts, moe_grouped_gemm=moe_grouped_gemm
-    )
+def get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm: bool = False) -> ModuleSpec:
+    # A卡上的MLP(HeterA2EMLP)是一个空层，其forward逻辑是把hidden_states传递给E卡上的MoE层，等E卡MoE层计算完毕后再把结果传回A卡
+    mlp = ModuleSpec(module=HeterA2EMLP)
     return ModuleSpec(
         module=TransformerLayer,
         submodules=TransformerLayerSubmodules(
@@ -86,8 +86,11 @@ def get_gpt_layer_local_spec_heter_moe_is_E(
     )
 
 
+
+    
+
 # Helper function to get module spec for MLP/MoE
-def _get_mlp_module_spec_heter_moe(
+def _get_mlp_module_spec(
     use_te: bool = True, num_experts: int = None, moe_grouped_gemm: bool = False
 ) -> ModuleSpec:
     if num_experts is None:
