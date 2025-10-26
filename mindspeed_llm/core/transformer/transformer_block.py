@@ -66,9 +66,9 @@ def _transformer_block_build_layers(self):
 
     def build_layer(layer_spec, layer_number):
         if (
-                args.num_experts
-                and args.first_k_dense_replace is not None
-                and args.moe_layer_freq is not None
+                args.num_experts  ## 专家数
+                and args.first_k_dense_replace is not None  ## 从第几层开始专家替换
+                and args.moe_layer_freq is not None         ## MoE层替换频率
         ):
             offset = parallel_state.get_pipeline_model_parallel_rank() * len(self.submodules.layer_specs)
             layer_idx = layer_number + offset - 1

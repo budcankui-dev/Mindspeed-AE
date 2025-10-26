@@ -20,6 +20,8 @@ from megatron.core.transformer.transformer_block import TransformerBlockSubmodul
 from megatron.core.transformer.transformer_layer import TransformerLayer, TransformerLayerSubmodules
 from megatron.training.global_vars import get_args
 
+from mindspeed_llm.hetermoe.core.transformer.transformer_layer import HeterExpertTransformerLayer,HeterExpertTransformerLayerSubmodules
+from mindspeed_llm.hetermoe.core.transformer.moe.moe_layer import HeterMoELayer
 
 
 
@@ -69,8 +71,20 @@ def get_gpt_layer_local_spec_heter_moe_is_A():
         ),
     )
 
-def get_gpt_layer_local_spec_heter_moe_is_E():
-    return
+def get_gpt_layer_local_spec_heter_moe_is_E(
+    num_experts: int = None, moe_grouped_gemm: bool = False
+)-> ModuleSpec:
+    mlp = _get_mlp_module_spec_heter_moe(
+        use_te=False, num_experts=num_experts, moe_grouped_gemm=moe_grouped_gemm
+    )
+
+    return ModuleSpec(
+        module=HeterExpertTransformerLayer,
+        submodules=HeterExpertTransformerLayerSubmodules(
+            mlp=mlp,
+        ),
+    )
+
 
 # Helper function to get module spec for MLP/MoE
 def _get_mlp_module_spec_heter_moe(
@@ -79,16 +93,7 @@ def _get_mlp_module_spec_heter_moe(
     if num_experts is None:
         # Dense MLP w/ or w/o TE modules.
         return ModuleSpec(
-            module=MLP,
-            submodules=MLPSubmodules(
-                linear_fc1=TELayerNormColumnParallelLinear if use_te else ColumnParallelLinear,
-                linear_fc2=TERowParallelLinear if use_te else RowParallelLinear,
-            ),
-        )
-    else:
-        # Mixture of experts with modules in megatron core.
-        return ModuleSpec(
-            module=MoELayer,
+            module=HeterMoELayer,
             submodules=MLPSubmodules(linear_fc1=ColumnParallelLinear, linear_fc2=RowParallelLinear,)
             if not moe_grouped_gemm
             else None,

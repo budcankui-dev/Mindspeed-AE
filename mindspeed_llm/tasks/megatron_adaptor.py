@@ -271,6 +271,7 @@ class CoreAdaptation(MegatronAdaptationABC):
                                     TransformerLayerSubmodules)
         MegatronAdaptation.register('megatron.core.transformer.transformer_layer.TransformerLayer.__init__',
                                     transformer_layer_init_wrapper)
+        ## heterMoE attention
         MegatronAdaptation.register('megatron.core.transformer.transformer_layer.TransformerLayer.forward',
                                     transformer_layer_forward)
         MegatronAdaptation.register('megatron.core.transformer.moe.router.z_loss_func', z_loss_func)

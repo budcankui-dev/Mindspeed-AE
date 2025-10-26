@@ -5,7 +5,7 @@ import os
 from functools import partial
 from typing import Union
 
-from mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
+from mindspeed_llm.hetermoe.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
 import torch
 from mindspeed_llm import megatron_adaptor
 from megatron.training import get_args
