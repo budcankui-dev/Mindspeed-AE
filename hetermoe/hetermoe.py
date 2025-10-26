@@ -1,16 +1,6 @@
 # rank_manager.py
 import torch
 from megatron.training import get_args, print_rank_0
-# def _add_heterMoE_args(parser):
-#     group = parser.add_argument_group(title='heterMoE')
-
-#     group.add_argument('--heter-moe-enable', action='store_true', default=False,type=bool,
-#                        help='Enable heteroMoE layers in the model.')
-#     group.add_argument('--heter-moe-attention-world-size', type=int, default=1,
-#                        help='The attention rank world size for heteroMoE layers.')
-#     group.add_argument('--heter-moe-ffn-world-size', type=int, default=1,
-#                        help='The ffn rank world size for heteroMoE layers.')
-#     return parser
 _initialized = False
 _attention_world_size = None
 _ffn_world_size = None

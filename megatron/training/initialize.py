@@ -245,7 +245,7 @@ def _initialize_distributed():
     # data-parallel communicators.
     if device_count > 0:
         #heterMoE 设置Android MindSpeed-LLM的heterMoE配置 args添加属性 heter_moe_is_A heter_moe_is_E 
-        from mindspeed_llm.hetermoe import set_heteroMoE_config
+        from hetermoe import set_heteroMoE_config
         set_heteroMoE_config(args)
         # from megatron.training import print_rank_0
         # print_rank_0(f"heterMoE config: is_A={getattr(args, 'heter_moe_is_A', False)}, is_E={getattr(args, 'heter_moe_is_E', False)}")   

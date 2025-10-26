@@ -224,12 +224,13 @@ class CoreAdaptation(MegatronAdaptationABC):
         args= MegatronAdaptation.get_args()
         if args.heter_moe_enable: 
             #如果AE分离，层结构替换为AE分离逻辑
-            from mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
-            MegatronAdaptation.register(
-                'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',
-                get_gpt_layer_local_spec_heter_moe)
-            MegatronAdaptation.register('mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe',
+            # from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
+            MegatronAdaptation.register('hetermoe.A.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_A',
                                         get_gpt_layer_local_spec_wrapper)
+            # from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
+            MegatronAdaptation.register('hetermoe.E.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_E',
+                                        get_gpt_layer_local_spec_wrapper)
+           
         else:
             MegatronAdaptation.register(
                 'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',

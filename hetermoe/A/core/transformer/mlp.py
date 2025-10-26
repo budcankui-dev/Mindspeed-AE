@@ -54,9 +54,9 @@ class HeterA2EMLP(MegatronModule):
         self.layer_number = layer_number
 
     def forward(self, hidden_states):
-        
 
-        return hidden_states
+        bias = None
+        return hidden_states, bias
 
         
 

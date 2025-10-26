@@ -5,7 +5,8 @@ import os
 from functools import partial
 from typing import Union
 
-from mindspeed_llm.hetermoe.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe
+from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
+from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
 import torch
 from mindspeed_llm import megatron_adaptor
 from megatron.training import get_args
@@ -60,31 +61,63 @@ def model_provider(pre_process=True, post_process=True) -> Union[GPTModel, megat
         config = core_transformer_config_from_args(args)
 
     if args.use_mcore_models:
-        if args.spec is not None:
-            transformer_layer_spec = import_module(args.spec)
+        if args.heter_moe_enable:
         # heterMoE 如果AE分离，执行此函数获得层结构
-        elif args.heter_moe_enable:
-            transformer_layer_spec = get_gpt_layer_local_spec_heter_moe(args.num_experts, args.moe_grouped_gemm)
+            if args.heter_moe_is_A:
+                transformer_layer_spec = get_gpt_layer_local_spec_heter_moe_A(args.num_experts, args.moe_grouped_gemm)
+                model = GPTModel(
+                config=config,
+                transformer_layer_spec=transformer_layer_spec,
+                vocab_size=args.padded_vocab_size,
+                max_sequence_length=args.max_position_embeddings,
+                pre_process=pre_process,
+                post_process=post_process,
+                fp16_lm_cross_entropy=args.fp16_lm_cross_entropy,
+                parallel_output=True,
+                share_embeddings_and_output_weights=not args.untie_embeddings_and_output_weights,
+                position_embedding_type=args.position_embedding_type,
+                rotary_percent=args.rotary_percent,
+                seq_len_interpolation_factor=args.rotary_seq_len_interpolation_factor
+                )
+            else: #heter_moe_is_E
+                transformer_layer_spec = get_gpt_layer_local_spec_heter_moe_E(args.num_experts, args.moe_grouped_gemm)
+                model = GPTModel(
+                config=config,
+                transformer_layer_spec=transformer_layer_spec,
+                vocab_size=args.padded_vocab_size,
+                max_sequence_length=args.max_position_embeddings,
+                pre_process=pre_process,
+                post_process=post_process,
+                fp16_lm_cross_entropy=args.fp16_lm_cross_entropy,
+                parallel_output=True,
+                share_embeddings_and_output_weights=not args.untie_embeddings_and_output_weights,
+                position_embedding_type=args.position_embedding_type,
+                rotary_percent=args.rotary_percent,
+                seq_len_interpolation_factor=args.rotary_seq_len_interpolation_factor
+                )
         else:
-            if use_te:
-                transformer_layer_spec = get_gpt_layer_with_transformer_engine_spec(args.num_experts, args.moe_grouped_gemm)
+            if args.spec is not None:
+                transformer_layer_spec = import_module(args.spec)
             else:
-                transformer_layer_spec = get_gpt_layer_local_spec(args.num_experts, args.moe_grouped_gemm)
+                if use_te:
+                    transformer_layer_spec = get_gpt_layer_with_transformer_engine_spec(args.num_experts, args.moe_grouped_gemm)
+                else:
+                    transformer_layer_spec = get_gpt_layer_local_spec(args.num_experts, args.moe_grouped_gemm)
 
-        model = GPTModel(
-            config=config,
-            transformer_layer_spec=transformer_layer_spec,
-            vocab_size=args.padded_vocab_size,
-            max_sequence_length=args.max_position_embeddings,
-            pre_process=pre_process,
-            post_process=post_process,
-            fp16_lm_cross_entropy=args.fp16_lm_cross_entropy,
-            parallel_output=True,
-            share_embeddings_and_output_weights=not args.untie_embeddings_and_output_weights,
-            position_embedding_type=args.position_embedding_type,
-            rotary_percent=args.rotary_percent,
-            seq_len_interpolation_factor=args.rotary_seq_len_interpolation_factor
-        )
+            model = GPTModel(
+                config=config,
+                transformer_layer_spec=transformer_layer_spec,
+                vocab_size=args.padded_vocab_size,
+                max_sequence_length=args.max_position_embeddings,
+                pre_process=pre_process,
+                post_process=post_process,
+                fp16_lm_cross_entropy=args.fp16_lm_cross_entropy,
+                parallel_output=True,
+                share_embeddings_and_output_weights=not args.untie_embeddings_and_output_weights,
+                position_embedding_type=args.position_embedding_type,
+                rotary_percent=args.rotary_percent,
+                seq_len_interpolation_factor=args.rotary_seq_len_interpolation_factor
+            )
     else:
         if not args.context_parallel_size == 1:
             raise ValueError("Context parallelism is only supported with Megatron Core!")
