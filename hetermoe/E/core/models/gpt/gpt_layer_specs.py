@@ -19,30 +19,12 @@ from megatron.core.transformer.spec_utils import ModuleSpec
 from megatron.core.transformer.transformer_block import TransformerBlockSubmodules
 from megatron.core.transformer.transformer_layer import TransformerLayer, TransformerLayerSubmodules
 from megatron.training.global_vars import get_args
-from mindspeed_llm.hetermoe.transformer.mlp import HeterA2EMLP
 
 
+     
 
-
-# Use this spec for an implementation using only modules in megatron core
-def get_gpt_layer_local_spec_heter_moe(
-    num_experts: int = None, moe_grouped_gemm: bool = False, qk_layernorm: bool = False
-) -> ModuleSpec:
-    args=get_args()
-
-     # 要么heter_moe_is_A要么heter_moe_is_E
-    # assert  
-    if args.heter_moe_is_A:
-        return get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm=qk_layernorm)
-    if args.heter_moe_is_E:
-        return get_gpt_layer_local_spec_heter_moe_is_E()
-  
-
-              
-
-def get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm: bool = False) -> ModuleSpec:
-    # A卡上的MLP(HeterA2EMLP)是一个空层，其forward逻辑是把hidden_states传递给E卡上的MoE层，等E卡MoE层计算完毕后再把结果传回A卡
-    mlp = ModuleSpec(module=HeterA2EMLP)
+def get_gpt_layer_local_spec_heter_moe_E( num_experts: int = None, moe_grouped_gemm: bool = False, qk_layernorm: bool = False) -> ModuleSpec:
+ 
     return ModuleSpec(
         module=TransformerLayer,
         submodules=TransformerLayerSubmodules(
@@ -60,7 +42,7 @@ def get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm: bool = False) -> Modu
             ),
             self_attn_bda=get_bias_dropout_add,
             pre_mlp_layernorm=FusedLayerNorm,
-            mlp=mlp,
+            # mlp=mlp,
             mlp_bda=get_bias_dropout_add,
             sharded_state_dict_keys_map={
                 'input_layernorm.': 'self_attention.linear_qkv.layer_norm_',
@@ -69,30 +51,8 @@ def get_gpt_layer_local_spec_heter_moe_is_A( qk_layernorm: bool = False) -> Modu
         ),
     )
 
-def get_gpt_layer_local_spec_heter_moe_is_E():
-    return
+
 
 
     
 
-# Helper function to get module spec for MLP/MoE
-def _get_mlp_module_spec(
-    use_te: bool = True, num_experts: int = None, moe_grouped_gemm: bool = False
-) -> ModuleSpec:
-    if num_experts is None:
-        # Dense MLP w/ or w/o TE modules.
-        return ModuleSpec(
-            module=MLP,
-            submodules=MLPSubmodules(
-                linear_fc1=TELayerNormColumnParallelLinear if use_te else ColumnParallelLinear,
-                linear_fc2=TERowParallelLinear if use_te else RowParallelLinear,
-            ),
-        )
-    else:
-        # Mixture of experts with modules in megatron core.
-        return ModuleSpec(
-            module=MoELayer,
-            submodules=MLPSubmodules(linear_fc1=ColumnParallelLinear, linear_fc2=RowParallelLinear,)
-            if not moe_grouped_gemm
-            else None,
-        )

@@ -11,7 +11,7 @@ NODE_RANK=0
 WORLD_SIZE=2
 
 #路径
-RD=/data01/zhangjialiang/MDTest
+RD=/data01/zhangjialiang/MDtest
 
 CKPT_SAVE_DIR="$RD/ckpt/llama-2-13b"
 DATA_PATH="$RD/dataset/enwiki_text_document"
