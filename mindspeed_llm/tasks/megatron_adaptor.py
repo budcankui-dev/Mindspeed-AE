@@ -389,6 +389,11 @@ class CoreAdaptation(MegatronAdaptationABC):
         from ..core import destroy_model_parallel_decorator
         from ..core.transformer.transformer_block import get_layer_offset_wrapper
 
+        # heterMoE   _initialize_distributed 初始化分布式进行ptach,添加解析heterMoE参数逻辑
+        from hetermoe.training.initialize import _initialize_distributed
+        MegatronAdaptation.register('megatron.training.initialize._initialize_distributed',
+                                    _initialize_distributed)
+       
         # Bugfix for Megatron-LM core 0.6.0, to be removed for next version.
         MegatronAdaptation.register('megatron.core.parallel_state.initialize_model_parallel',
                                     initialize_model_parallel)
