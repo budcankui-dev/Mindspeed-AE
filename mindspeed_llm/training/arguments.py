@@ -61,18 +61,18 @@ def process_args(parser):
     parser = _add_deepseek_moe_args(parser)
     parser = _add_rl_args(parser)
     # heterMoE
-    parser = _add_herterMoE_args(parser)
+    parser = _add_heterMoE_args(parser)
 
     return parser
 # heterMoE 参数解析
-def _add_herterMoE_args(parser):
-    group = parser.add_argument_group(title='herterMoE')
+def _add_heterMoE_args(parser):
+    group = parser.add_argument_group(title='heterMoE')
 
-    group.add_argument('--herter-moe-enable', default=False,type=bool,
+    group.add_argument('--heter-moe-enable', default=False,type=bool,
                        help='Enable heteroMoE layers in the model.')
-    group.add_argument('--herter-moe-attention-world-size', type=int, default=1,
+    group.add_argument('--heter-moe-attention-world-size', type=int, default=1,
                        help='The attention rank world size for heteroMoE layers.')
-    group.add_argument('--herter-moe-ffn-world-size', type=int, default=1,
+    group.add_argument('--heter-moe-ffn-world-size', type=int, default=1,
                        help='The ffn rank world size for heteroMoE layers.')
     return parser
 
