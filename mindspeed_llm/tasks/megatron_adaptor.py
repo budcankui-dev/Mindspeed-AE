@@ -219,24 +219,23 @@ class CoreAdaptation(MegatronAdaptationABC):
 
         # Layer Definition
         # For NPU, we use local-mcore-structrue in te layer.
-
-        # heterMoE  
-        args= MegatronAdaptation.get_args()
-        if args.heter_moe_enable: 
-            #如果AE分离，层结构替换为AE分离逻辑
-            # from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
-            MegatronAdaptation.register('hetermoe.A.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_A',
-                                        get_gpt_layer_local_spec_wrapper)
-            # from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
-            MegatronAdaptation.register('hetermoe.E.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_E',
-                                        get_gpt_layer_local_spec_wrapper)
-           
-        else:
-            MegatronAdaptation.register(
+        MegatronAdaptation.register(
                 'megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_with_transformer_engine_spec',
                 get_gpt_layer_local_spec)
-            MegatronAdaptation.register('megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec',
-                                        get_gpt_layer_local_spec_wrapper)
+
+        MegatronAdaptation.register('megatron.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec',
+                                    get_gpt_layer_local_spec_wrapper)
+    
+        # heterMoE  
+        #AE分离，层结构为AE分离逻辑
+        # from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
+        MegatronAdaptation.register('hetermoe.A.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_A',
+                                    get_gpt_layer_local_spec_wrapper)
+        # from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
+        MegatronAdaptation.register('hetermoe.E.core.models.gpt.gpt_layer_specs.get_gpt_layer_local_spec_heter_moe_E',
+                                    get_gpt_layer_local_spec_wrapper)
+        
+    
         
         MegatronAdaptation.register('megatron.training.utils.get_batch_on_this_cp_rank', get_batch_on_this_cp_rank)
         MegatronAdaptation.register('megatron.training.utils.get_batch_on_this_tp_rank', get_batch_on_this_tp_rank)
