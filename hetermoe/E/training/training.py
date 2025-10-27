@@ -231,24 +231,24 @@ def build_train_args(*input_args):
                    'scheduler are built')
     config = get_model_config(model[0])
 
-    # Data stuff.
-    timers('train/valid/test-data-iterators-setup', log_level=0).start(
-        barrier=True)
-    if args.virtual_pipeline_model_parallel_size is not None:
-        train_data_iterator = []
-        valid_data_iterator = []
-        test_data_iterator = []
-        for i in range(len(model)):
-            mpu.set_virtual_pipeline_model_parallel_rank(i)
-            iterators = build_train_valid_test_data_iterators(
-                train_valid_test_dataset_provider)
-            train_data_iterator.append(iterators[0])
-            valid_data_iterator.append(iterators[1])
-            test_data_iterator.append(iterators[2])
-    else:
-        train_data_iterator, valid_data_iterator, test_data_iterator \
-            = build_train_valid_test_data_iterators(
-            train_valid_test_dataset_provider)
+    # # Data stuff
+    # timers('train/valid/test-data-iterators-setup', log_level=0).start(
+    #     barrier=True)
+    # if args.virtual_pipeline_model_parallel_size is not None:
+    #     train_data_iterator = []
+    #     valid_data_iterator = []
+    #     test_data_iterator = []
+    #     for i in range(len(model)):
+    #         mpu.set_virtual_pipeline_model_parallel_rank(i)
+    #         iterators = build_train_valid_test_data_iterators(
+    #             train_valid_test_dataset_provider)
+    #         train_data_iterator.append(iterators[0])
+    #         valid_data_iterator.append(iterators[1])
+    #         test_data_iterator.append(iterators[2])
+    # else:
+    #     train_data_iterator, valid_data_iterator, test_data_iterator \
+    #         = build_train_valid_test_data_iterators(
+    #         train_valid_test_dataset_provider)
     timers('train/valid/test-data-iterators-setup').stop()
     print_datetime('after dataloaders are built')
 
@@ -257,11 +257,11 @@ def build_train_args(*input_args):
     timers.log(['model-and-optimizer-setup',
                 'train/valid/test-data-iterators-setup'], barrier=True)
 
+    ## 去掉iterator
     train_args = [forward_step_func,
                   model, optimizer, opt_param_scheduler,
-                  train_data_iterator, valid_data_iterator, process_non_loss_data_func, config]
-    test_data_iterator_list = [test_data_iterator]
-    return train_args, test_data_iterator_list
+                  process_non_loss_data_func, config]
+    return train_args
 
 
 def pretrain_E(train_valid_test_dataset_provider,
@@ -336,7 +336,7 @@ def pretrain_E(train_valid_test_dataset_provider,
             'train_iterations_warmup': 5
         })
 
-    train_args, test_data_iterator_list = build_train_args(args, timers, train_valid_test_dataset_provider,
+    train_args = build_train_args(args, timers, train_valid_test_dataset_provider,
                                                            model_provider,
                                                            model_type, forward_step_func, process_non_loss_data_func)
 
@@ -346,22 +346,24 @@ def pretrain_E(train_valid_test_dataset_provider,
     if not args.skip_train:
         print_rank_0('training ...')
 
+        ## 迭代次数
         if args.dataloader_type == 'cyclic' and args.retro_project_dir:
             assert args.retro_cyclic_train_iters is not None
             args.train_iters = args.retro_cyclic_train_iters
             print_rank_0("retro cyclic train iters : %d" % args.train_iters)
 
         iteration = 0
+        ## 训练
         if args.do_train and args.train_iters > 0:
             if args.enable_high_availability:
-                from mindio_ttp.adaptor import tft_register_processor, tft_train
-                tft_register_processor(train_valid_test_dataset_provider, model_provider, model_type)
-                iteration, num_floating_point_operations_so_far = tft_train(train_args, test_data_iterator_list)
+                # from mindio_ttp.adaptor import tft_register_processor, tft_train
+                # tft_register_processor(train_valid_test_dataset_provider, model_provider, model_type)
+                # iteration, num_floating_point_operations_so_far = tft_train(train_args, test_data_iterator_list)
+                print(" ")
             else:
                 iteration, num_floating_point_operations_so_far = train(*train_args)
 
-            test_data_iterator = test_data_iterator_list[0]
-            forward_step_func, model, optimizer, opt_param_scheduler, train_data_iterator, valid_data_iterator, process_non_loss_data_func, config = train_args
+            forward_step_func, model, optimizer, opt_param_scheduler, process_non_loss_data_func, config = train_args
 
         print_datetime('after training is done')
 
@@ -373,19 +375,20 @@ def pretrain_E(train_valid_test_dataset_provider,
 
         iteration = args.iteration
 
-    if args.do_valid:
-        prefix = f'iteration {iteration} on validation set'
-        evaluate_and_print_results(prefix, forward_step_func,
-                                   valid_data_iterator, model,
-                                   iteration, process_non_loss_data_func, config,
-                                   verbose=True, write_to_tensorboard=not args.skip_train)
+    ##heterMoE 验证和测试，暂时去掉
+    # if args.do_valid:
+    #     prefix = f'iteration {iteration} on validation set'
+    #     evaluate_and_print_results(prefix, forward_step_func,
+    #                                valid_data_iterator, model,
+    #                                iteration, process_non_loss_data_func, config,
+    #                                verbose=True, write_to_tensorboard=not args.skip_train)
 
-    if args.do_test:
-        prefix = f'iteration {iteration} on test set'
-        evaluate_and_print_results(prefix, forward_step_func,
-                                   test_data_iterator, model,
-                                   iteration, process_non_loss_data_func, config,
-                                   verbose=True, write_to_tensorboard=not args.skip_train)
+    # if args.do_test:
+    #     prefix = f'iteration {iteration} on test set'
+    #     evaluate_and_print_results(prefix, forward_step_func,
+    #                                test_data_iterator, model,
+    #                                iteration, process_non_loss_data_func, config,
+    #                                verbose=True, write_to_tensorboard=not args.skip_train)
 
 
 def save_checkpoint_and_time(iteration, model, optimizer, opt_param_scheduler,
@@ -409,7 +412,6 @@ def save_checkpoint_and_time(iteration, model, optimizer, opt_param_scheduler,
 
 
 def train(forward_step_func, model, optimizer, opt_param_scheduler,
-          train_data_iterator, valid_data_iterator,
           process_non_loss_data_func, config):
     """Train the model function."""
     args = get_args()
@@ -462,6 +464,7 @@ def train(forward_step_func, model, optimizer, opt_param_scheduler,
             config.param_sync_func = config.param_sync_func[0]
     config.finalize_model_grads_func = finalize_model_grads
 
+
     timers('interval-time', log_level=0).start(barrier=True)
     print_datetime('before the start of training step')
     report_memory_flag = True
@@ -475,6 +478,7 @@ def train(forward_step_func, model, optimizer, opt_param_scheduler,
         gc.disable()
         gc.collect()
 
+    ## 当前dp rank ,microbtches数
     num_microbatches = get_num_microbatches()
     eval_duration = 0.0
     eval_iterations = 0
@@ -521,6 +525,8 @@ def train(forward_step_func, model, optimizer, opt_param_scheduler,
         update_num_microbatches(args.consumed_train_samples, consistency_check=True)
 
         args.curr_iteration = iteration
+
+        ## 
         loss_dict, skipped_iter, grad_norm, num_zeros_in_grad = \
             train_step(forward_step_func,
                        train_data_iterator,

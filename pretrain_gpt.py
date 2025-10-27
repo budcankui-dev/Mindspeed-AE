@@ -23,6 +23,7 @@ from megatron.core.datasets.gpt_dataset import GPTDatasetConfig
 from megatron.core.datasets.gpt_dataset import MockGPTDataset, GPTDataset
 import megatron.legacy.model
 from megatron.core.models.gpt import GPTModel
+from hetermoe.E.core.models.gpt.gpt_model import HeterExpertGPTModel
 from megatron.core.transformer.spec_utils import import_module
 from megatron.training.utils import (
     get_batch_on_this_cp_rank,
@@ -84,7 +85,7 @@ def model_provider(pre_process=True, post_process=True) -> Union[GPTModel, megat
                 )
             else: #heter_moe_is_E
                 transformer_layer_spec = get_gpt_layer_local_spec_heter_moe_E(args.num_experts, args.moe_grouped_gemm)
-                model = GPTModel(
+                model = HeterExpertGPTModel(
                 config=config,
                 transformer_layer_spec=transformer_layer_spec,
                 vocab_size=args.padded_vocab_size,
