@@ -4,14 +4,10 @@
 import os
 from functools import partial
 from typing import Union
-
-from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
-from hetermoe.A.training.training import pretrain_A
-from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
-from hetermoe.E.training.training import pretrain_E
-from megatron.training.initialize import initialize_megatron
 import torch
+
 from mindspeed_llm import megatron_adaptor
+
 from megatron.training import get_args
 from megatron.training import print_rank_0
 from megatron.training import get_timers
@@ -38,6 +34,12 @@ from megatron.core.models.gpt.gpt_layer_specs import (
 
 from mindspeed_llm.training import pretrain
 from mindspeed_llm.training.utils import generate_actual_seq_len
+
+from hetermoe.A.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_A
+from hetermoe.A.training.training import pretrain_A
+from hetermoe.E.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec_heter_moe_E
+from hetermoe.E.training.training import pretrain_E
+from megatron.training.initialize import initialize_megatron
 
 
 def model_provider(pre_process=True, post_process=True) -> Union[GPTModel, megatron.legacy.model.GPTModel]:
